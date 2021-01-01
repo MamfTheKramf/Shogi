@@ -20,7 +20,7 @@ public:
         King
     };
 
-private:
+protected:
     Position _pos;
     bool _isPromoted;
     const bool _isPromotable;

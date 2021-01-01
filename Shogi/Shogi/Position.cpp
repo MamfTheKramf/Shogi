@@ -26,3 +26,13 @@ bool Position::operator==(const Position &p)
 {
     return x == p.x && y == p.y;
 }
+
+bool Position::operator!=(const Position &p)
+{
+    return x != p.x || y != p.y;
+}
+
+bool operator==(const Position &l, const Position &r)
+{
+    return l.x == r.x && l.y == r.y;
+}

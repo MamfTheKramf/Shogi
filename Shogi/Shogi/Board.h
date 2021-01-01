@@ -7,6 +7,7 @@ class Board : public QWidget
 {
     Q_OBJECT
 public:
+    //black moves up; white moves down
     enum Team {
         Black,
         White
@@ -15,7 +16,6 @@ public:
     explicit Board(QWidget *parent = nullptr);
 
 
-signals:
 
 };
 

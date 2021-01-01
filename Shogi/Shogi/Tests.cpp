@@ -1,6 +1,6 @@
-#include "TestPiece.h"
+#include "TestPawn.h"
 
 void runTests() {
-    TestPiece* tp = new TestPiece();
-    QTest::qExec(tp);
+    TestPawn tPawn;
+    QTest::qExec(&tPawn);
 }

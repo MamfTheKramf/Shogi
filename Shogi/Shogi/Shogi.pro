@@ -11,9 +11,10 @@ CONFIG += c++11
 
 SOURCES += \
     Board.cpp \
+    Pawn.cpp \
     Piece.cpp \
     Position.cpp \
-    TestPiece.cpp \
+    TestPawn.cpp \
     Tests.cpp \
     main.cpp \
     MainWindow.cpp
@@ -21,9 +22,10 @@ SOURCES += \
 HEADERS += \
     Board.h \
     MainWindow.h \
+    Pawn.h \
     Piece.h \
     Position.h \
-    TestPiece.h
+    TestPawn.h
 
 FORMS += \
     MainWindow.ui

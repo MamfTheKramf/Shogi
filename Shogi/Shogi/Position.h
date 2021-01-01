@@ -15,6 +15,10 @@ struct Position
     Position &operator=(const Position& p);
 
     bool operator==(const Position& p);
+
+    bool operator!=(const Position& p);
 };
+
+bool operator==(const Position& l, const Position& r);
 
 #endif // POSITION_H
