@@ -1,5 +1,6 @@
 #include "TestPawn.h"
 #include "Pawn.h"
+#include "functions.h"
 
 void TestPawn::testGetPos()
 {
@@ -33,6 +34,9 @@ void TestPawn::testIsPromoted()
 
     Pawn p2(8, 8, Board::Team::White);
     QCOMPARE(p2.isPromoted(), false);
+
+    Pawn p3({0, 3}, Board::Team::Black, true);
+    QCOMPARE(p3.isPromoted(), true);
 }
 
 void TestPawn::testSetPos()
@@ -88,4 +92,21 @@ void TestPawn::testReachableFieldsOutOfBounds()
     Pawn whitePawn(7, 8, Board::Team::White);
     actual = whitePawn.getReachableFields();
     QCOMPARE(actual, expected);
+}
+
+void TestPawn::testGetReachableFieldsPromoted()
+{
+    Pawn blackPawn(4, 4, Board::Team::Black, true);
+    auto actual = blackPawn.getReachableFields();
+    std::vector<Position> expected = {{4, 5},
+                                      {3, 3}, {4, 3}, {5, 3},
+                                      {3, 4}, {5, 4}};
+    QVERIFY(containSameElements(actual, expected));
+
+    Pawn whitePawn(4, 4, Board::Team::White, true);
+    actual = whitePawn.getReachableFields();
+    expected = {{4, 3},
+                {3, 4}, {5, 4},
+                {3, 5}, {4, 5}, {5, 5}};
+    QVERIFY(containSameElements(actual, expected));
 }

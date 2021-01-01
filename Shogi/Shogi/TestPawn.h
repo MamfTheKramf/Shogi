@@ -16,6 +16,7 @@ private slots:
     void testPromote();
     void testReachableFieldsNormal();
     void testReachableFieldsOutOfBounds();
+    void testGetReachableFieldsPromoted();
 };
 
 #endif // TESTPAWN_H

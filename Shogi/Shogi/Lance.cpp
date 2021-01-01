@@ -1,33 +1,35 @@
-#include "Pawn.h"
+#include "Lance.h"
 
-Pawn::Pawn(Board::Team team):
-    Piece({0, 0}, false, true, Piece::Type::Pawn, team)
+Lance::Lance(Board::Team team):
+    Piece({0, 0}, false, true, Piece::Type::Lance, team)
+{
+
+}
+
+Lance::Lance(int x, int y, Board::Team team, bool promoted):
+    Piece({x, y}, promoted, true, Piece::Type::Lance, team)
 {}
 
-Pawn::Pawn(int x, int y, Board::Team team, bool promoted):
-    Piece({x, y}, promoted, true, Piece::Type::Pawn, team)
+Lance::Lance(const Position &p, Board::Team team, bool promoted):
+    Piece(p, promoted, true, Piece::Type::Lance, team)
 {}
 
-Pawn::Pawn(const Position &p, Board::Team team, bool promoted):
-    Piece(p, promoted, true, Piece::Type::Pawn, team)
-{}
-
-std::vector<Position> Pawn::getReachableFields() const {
+std::vector<Position> Lance::getReachableFields() const
+{
     std::vector<Position> ret;
-    if (!_isPromoted) {
-        Position p = {_pos.x, _pos.y};
+    if(!_isPromoted) {
         if (_team == Board::Team::Black) {
-            p.y -= 1;
+            ret.reserve(_pos.y);
+            for(int i = 0; i < _pos.y; i++) {
+                ret.push_back(Position(_pos.x, i));
+            }
         } else {
-            p.y += 1;
+            ret.reserve(8 - _pos.y);
+            for(int i = 8; i > _pos.y; i--) {
+                ret.push_back(Position(_pos.x, i));
+            }
         }
-        // if piece would step out of the board
-        if (p.y < 0 || p.y >= 9) {
-            return ret;
-        }
-        ret.push_back(p);
         return ret;
-
     } else {
         for (int x = _pos.x-1; x <= _pos.x+1; x++) {
             if (x < 0 || x >= 9)
@@ -49,5 +51,4 @@ std::vector<Position> Pawn::getReachableFields() const {
         }
         return ret;
     }
-
 }
