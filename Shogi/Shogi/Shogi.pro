@@ -1,4 +1,5 @@
 QT       += core gui
+QT += testlib
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -12,6 +13,8 @@ SOURCES += \
     Board.cpp \
     Piece.cpp \
     Position.cpp \
+    TestPiece.cpp \
+    Tests.cpp \
     main.cpp \
     MainWindow.cpp
 
@@ -19,7 +22,8 @@ HEADERS += \
     Board.h \
     MainWindow.h \
     Piece.h \
-    Position.h
+    Position.h \
+    TestPiece.h
 
 FORMS += \
     MainWindow.ui

@@ -12,7 +12,7 @@ struct Position
 
     Position(const Position& pos);
 
-    Position& operator=(const Position& p);
+    Position &operator=(const Position& p);
 
     bool operator==(const Position& p);
 };
