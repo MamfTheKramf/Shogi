@@ -16,4 +16,7 @@ void TestGeneral::testContainSameElements()
 
     a = {10, 6, 2, -3};
     QVERIFY(containSameElements(a, b));
+
+    a = {10, 10, 6, -3};
+    QVERIFY(!containSameElements(a, b));
 }

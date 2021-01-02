@@ -2,6 +2,7 @@
 #define FUNCTIONS_H
 
 #include <vector>
+#include <algorithm>
 
 template <typename T>
 bool containSameElements(const std::vector<T>& a, const std::vector<T>& b) {
@@ -9,14 +10,7 @@ bool containSameElements(const std::vector<T>& a, const std::vector<T>& b) {
         return false;
     }
     for(T elemA: a) {
-        bool found = false;
-        for (T elemB: b) {
-            if (elemA == elemB) {
-                found = true;
-                break;
-            }
-        }
-        if (!found) {
+        if(std::count(a.begin(), a.end(), elemA) != std::count(b.begin(), b.end(), elemA)) {
             return false;
         }
     }

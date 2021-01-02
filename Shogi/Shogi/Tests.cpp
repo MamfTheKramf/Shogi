@@ -7,8 +7,8 @@ void runTests() {
     QTest::qExec(&tGeneral);
 
     TestPawn tPawn;
-    QTest::qExec(&tPawn);
+    //QTest::qExec(&tPawn);
 
     TestLance tLance;
-    QTest::qExec(&tLance);
+    //QTest::qExec(&tLance);
 }
