@@ -15,6 +15,7 @@ SOURCES += \
     Bishop.cpp \
     Board.cpp \
     GoldGeneral.cpp \
+    King.cpp \
     Knight.cpp \
     Lance.cpp \
     Pawn.cpp \
@@ -25,6 +26,7 @@ SOURCES += \
     Test/TestBishop.cpp \
     Test/TestGeneral.cpp \
     Test/TestGoldGeneral.cpp \
+    Test/TestKing.cpp \
     Test/TestKnight.cpp \
     Test/TestLance.cpp \
     Test/TestPawn.cpp \
@@ -38,6 +40,7 @@ HEADERS += \
     Bishop.h \
     Board.h \
     GoldGeneral.h \
+    King.h \
     Knight.h \
     Lance.h \
     MainWindow.h \
@@ -49,6 +52,7 @@ HEADERS += \
     Test/TestBishop.h \
     Test/TestGeneral.h \
     Test/TestGoldGeneral.h \
+    Test/TestKing.h \
     Test/TestKnight.h \
     Test/TestLance.h \
     Test/TestPawn.h \
