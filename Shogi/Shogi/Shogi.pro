@@ -20,6 +20,7 @@ SOURCES += \
     Pawn.cpp \
     Piece.cpp \
     Position.cpp \
+    Rook.cpp \
     SilverGeneral.cpp \
     Test/TestBishop.cpp \
     Test/TestGeneral.cpp \
@@ -27,6 +28,7 @@ SOURCES += \
     Test/TestKnight.cpp \
     Test/TestLance.cpp \
     Test/TestPawn.cpp \
+    Test/TestRook.cpp \
     Test/TestSilverGeneral.cpp \
     Test/Tests.cpp \
     main.cpp \
@@ -42,6 +44,7 @@ HEADERS += \
     Pawn.h \
     Piece.h \
     Position.h \
+    Rook.h \
     SilverGeneral.h \
     Test/TestBishop.h \
     Test/TestGeneral.h \
@@ -49,6 +52,7 @@ HEADERS += \
     Test/TestKnight.h \
     Test/TestLance.h \
     Test/TestPawn.h \
+    Test/TestRook.h \
     Test/TestSilverGeneral.h \
     functions.h
 
