@@ -9,7 +9,10 @@ CONFIG += c++11
 # In order to do so, uncomment the following line.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
+INCLUDEPATH += Test
+
 SOURCES += \
+    Bishop.cpp \
     Board.cpp \
     GoldGeneral.cpp \
     Knight.cpp \
@@ -18,17 +21,19 @@ SOURCES += \
     Piece.cpp \
     Position.cpp \
     SilverGeneral.cpp \
-    TestGeneral.cpp \
-    TestGoldGeneral.cpp \
-    TestKnight.cpp \
-    TestLance.cpp \
-    TestPawn.cpp \
-    TestSilverGeneral.cpp \
-    Tests.cpp \
+    Test/TestBishop.cpp \
+    Test/TestGeneral.cpp \
+    Test/TestGoldGeneral.cpp \
+    Test/TestKnight.cpp \
+    Test/TestLance.cpp \
+    Test/TestPawn.cpp \
+    Test/TestSilverGeneral.cpp \
+    Test/Tests.cpp \
     main.cpp \
     MainWindow.cpp
 
 HEADERS += \
+    Bishop.h \
     Board.h \
     GoldGeneral.h \
     Knight.h \
@@ -38,12 +43,13 @@ HEADERS += \
     Piece.h \
     Position.h \
     SilverGeneral.h \
-    TestGeneral.h \
-    TestGoldGeneral.h \
-    TestKnight.h \
-    TestLance.h \
-    TestPawn.h \
-    TestSilverGeneral.h \
+    Test/TestBishop.h \
+    Test/TestGeneral.h \
+    Test/TestGoldGeneral.h \
+    Test/TestKnight.h \
+    Test/TestLance.h \
+    Test/TestPawn.h \
+    Test/TestSilverGeneral.h \
     functions.h
 
 FORMS += \

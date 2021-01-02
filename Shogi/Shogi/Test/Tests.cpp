@@ -4,6 +4,7 @@
 #include "TestKnight.h"
 #include "TestSilverGeneral.h"
 #include "TestGoldGeneral.h"
+#include "TestBishop.h"
 
 void runTests() {
     TestGeneral tGeneral;
@@ -12,6 +13,7 @@ void runTests() {
     TestKnight tKnight;
     TestSilverGeneral tSG;
     TestGoldGeneral tGG;
+    TestBishop tBishop;
 
 
     QTest::qExec(&tGeneral);
@@ -20,4 +22,5 @@ void runTests() {
     QTest::qExec(&tKnight);
     QTest::qExec(&tSG);
     QTest::qExec(&tGG);
+    QTest::qExec(&tBishop);
 }
