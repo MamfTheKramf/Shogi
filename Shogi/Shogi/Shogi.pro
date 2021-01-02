@@ -16,10 +16,12 @@ SOURCES += \
     Pawn.cpp \
     Piece.cpp \
     Position.cpp \
+    SilverGeneral.cpp \
     TestGeneral.cpp \
     TestKnight.cpp \
     TestLance.cpp \
     TestPawn.cpp \
+    TestSilverGeneral.cpp \
     Tests.cpp \
     main.cpp \
     MainWindow.cpp
@@ -32,10 +34,12 @@ HEADERS += \
     Pawn.h \
     Piece.h \
     Position.h \
+    SilverGeneral.h \
     TestGeneral.h \
     TestKnight.h \
     TestLance.h \
     TestPawn.h \
+    TestSilverGeneral.h \
     functions.h
 
 FORMS += \
