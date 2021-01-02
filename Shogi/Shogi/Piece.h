@@ -41,6 +41,8 @@ public:
     void promote();
 
     virtual std::vector<Position> getReachableFields() const = 0;
+    // made this method part of the base class since so many pieces get this movement when promoted
+    std::vector<Position> getGoldGeneralReachableFields() const;
 };
 
 #endif // PIECE_H

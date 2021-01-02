@@ -46,4 +46,10 @@ void TestLance::testGetReachableFieldsPromoted()
                 {3, 4}, {5, 4},
                 {3, 5}, {4, 5}, {5, 5}};
     QVERIFY(containSameElements(actual, expected));
+
+    blackLance.setPos(0, 0);
+    actual = blackLance.getReachableFields();
+    expected = {{1, 0},
+                {0, 1}};
+    QVERIFY(containSameElements(actual, expected));
 }

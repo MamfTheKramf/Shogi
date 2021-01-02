@@ -29,25 +29,7 @@ std::vector<Position> Pawn::getReachableFields() const {
         return ret;
 
     } else {
-        for (int x = _pos.x-1; x <= _pos.x+1; x++) {
-            if (x < 0 || x >= 9)
-                continue;
-
-            for (int y = _pos.y-1; y <= _pos.y+1; y++) {
-                if (y < 0 || y >= 9)
-                    continue;
-
-                if (( (_team == Board::Team::Black && y == _pos.y+1)
-                     || (_team == Board::Team::White && y == _pos.y - 1)) && x != _pos.x)
-                    continue;
-
-                if (x == _pos.x && y == _pos.y)
-                    continue;
-
-                ret.push_back({x, y});
-            }
-        }
-        return ret;
+        return getGoldGeneralReachableFields();
     }
 
 }

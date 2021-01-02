@@ -42,3 +42,25 @@ void Piece::promote()
 {
     _isPromoted = true;
 }
+
+std::vector<Position> Piece::getGoldGeneralReachableFields() const
+{
+    std::vector<Position> ret;
+    for (int x = _pos.x-1; x <= _pos.x+1; x++) {
+        if (x < 0 || x >= 9) //out of bound
+            continue;
+
+        for (int y = _pos.y-1; y <= _pos.y+1; y++) {
+            if ((y < 0 || y >= 9) //out of bound
+                || (_team == Board::Team::Black && y == _pos.y + 1 && x != _pos.x) // diagonal behind BLACK
+                || (_team == Board::Team::White && y == _pos.y - 1 && x != _pos.x) // diagonal behind WHITE
+                || (x == _pos.x && y == _pos.y)) // current Pos
+            {
+                continue;
+            }
+
+            ret.push_back({x, y});
+        }
+    }
+    return ret;
+}
