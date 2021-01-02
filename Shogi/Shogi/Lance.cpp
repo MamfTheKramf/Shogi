@@ -16,18 +16,15 @@ Lance::Lance(const Position &p, Board::Team team, bool promoted):
 
 std::vector<Position> Lance::getReachableFields() const
 {
-    std::vector<Position> ret;
+
     if(!_isPromoted) {
-        if (_team == Board::Team::Black) {
-            ret.reserve(_pos.y);
-            for(int i = 0; i < _pos.y; i++) {
-                ret.push_back(Position(_pos.x, i));
-            }
-        } else {
-            ret.reserve(8 - _pos.y);
-            for(int i = 8; i > _pos.y; i--) {
-                ret.push_back(Position(_pos.x, i));
-            }
+        std::vector<Position> ret;
+        int offset = 1;
+        while ((_team == Board::Team::Black && _pos.y - offset >= 0)
+               || (_team == Board::Team::White && _pos.y + offset < 9)) {
+            int y = _team == Board::Team::Black ? _pos.y - offset : _pos.y + offset;
+            ret.push_back({_pos.x, y});
+            offset++;
         }
         return ret;
     } else {

@@ -16,7 +16,7 @@ void TestLance::testGetReachableFieldsNormal() {
     Lance l3(4, 4, Board::Team::Black);
     actual = l3.getReachableFields();
     expected = {Position(4, 0), Position(4, 1), Position(4, 2), Position(4, 3)};
-    QCOMPARE(actual, expected);
+    QVERIFY(containSameElements(actual, expected));
 
     Lance l4(0, 0, Board::Team::White);
     actual = l4.getReachableFields();
@@ -28,7 +28,7 @@ void TestLance::testGetReachableFieldsNormal() {
                Position(0, 3),
                Position(0, 2),
                Position(0, 1)};
-    QCOMPARE(actual, expected);
+    QVERIFY(containSameElements(actual, expected));
 }
 
 void TestLance::testGetReachableFieldsPromoted()
