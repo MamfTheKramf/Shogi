@@ -40,7 +40,8 @@ Board::Team Piece::getTeam() const
 
 void Piece::promote()
 {
-    _isPromoted = true;
+    // that why a piece will only promote if _isPromotable is true
+    _isPromoted = _isPromotable;
 }
 
 std::vector<Position> Piece::getGoldGeneralReachableFields() const

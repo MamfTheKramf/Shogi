@@ -118,28 +118,3 @@ void TestPawn::testGetReachableFieldsPromoted()
                 {0, 8}};
     QVERIFY(containSameElements(actual, expected));
 }
-
-void TestPawn::testGetGoldGeneralReachableFields()
-{
-    Pawn bPawn(4, 4, Board::Team::Black);
-    auto actual = bPawn.getGoldGeneralReachableFields();
-    std::vector<Position> expected = {{4, 5},
-                                      {3, 3}, {4, 3}, {5, 3},
-                                      {3, 4}, {5, 4}};
-    QVERIFY(containSameElements(actual, expected));
-
-    Pawn wPawn(4, 4, Board::Team::White);
-    actual = wPawn.getGoldGeneralReachableFields();
-    expected = {{4, 3},
-                {3, 4}, {5, 4},
-                {3, 5}, {4, 5}, {5, 5}};
-    QVERIFY(containSameElements(actual, expected));
-
-    // check if trimming works properly
-    bPawn.setPos(0, 7);
-    actual = bPawn.getGoldGeneralReachableFields();
-    expected = {{0, 6}, {1, 6},
-                {1, 7},
-                {0, 8}};
-    QVERIFY(containSameElements(actual, expected));
-}

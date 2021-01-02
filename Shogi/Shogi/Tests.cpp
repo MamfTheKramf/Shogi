@@ -3,6 +3,7 @@
 #include "TestLance.h"
 #include "TestKnight.h"
 #include "TestSilverGeneral.h"
+#include "TestGoldGeneral.h"
 
 void runTests() {
     TestGeneral tGeneral;
@@ -10,6 +11,7 @@ void runTests() {
     TestLance tLance;
     TestKnight tKnight;
     TestSilverGeneral tSG;
+    TestGoldGeneral tGG;
 
 
     QTest::qExec(&tGeneral);
@@ -17,4 +19,5 @@ void runTests() {
     QTest::qExec(&tLance);
     QTest::qExec(&tKnight);
     QTest::qExec(&tSG);
+    QTest::qExec(&tGG);
 }

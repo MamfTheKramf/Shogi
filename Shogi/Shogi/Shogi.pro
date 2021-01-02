@@ -11,6 +11,7 @@ CONFIG += c++11
 
 SOURCES += \
     Board.cpp \
+    GoldGeneral.cpp \
     Knight.cpp \
     Lance.cpp \
     Pawn.cpp \
@@ -18,6 +19,7 @@ SOURCES += \
     Position.cpp \
     SilverGeneral.cpp \
     TestGeneral.cpp \
+    TestGoldGeneral.cpp \
     TestKnight.cpp \
     TestLance.cpp \
     TestPawn.cpp \
@@ -28,6 +30,7 @@ SOURCES += \
 
 HEADERS += \
     Board.h \
+    GoldGeneral.h \
     Knight.h \
     Lance.h \
     MainWindow.h \
@@ -36,6 +39,7 @@ HEADERS += \
     Position.h \
     SilverGeneral.h \
     TestGeneral.h \
+    TestGoldGeneral.h \
     TestKnight.h \
     TestLance.h \
     TestPawn.h \
