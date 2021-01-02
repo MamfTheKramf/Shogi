@@ -14,5 +14,40 @@ Bishop::Bishop(const Position &p, Board::Team team, bool promoted):
 
 std::vector<Position> Bishop::getReachableFields() const
 {
-    return std::vector<Position>();
+    std::vector<Position> ret;
+
+    // up-left direction
+    int offset = 1;
+    while (_pos.x - offset >= 0 && _pos.y - offset >= 0) {
+        ret.push_back({_pos.x - offset, _pos.y - offset});
+        offset++;
+    }
+    // up-right direction
+    offset = 1;
+    while (_pos.x + offset < 9 && _pos.y - offset >= 0) {
+        ret.push_back({_pos.x + offset, _pos.y - offset});
+        offset++;
+    }
+    // down-left direction
+    offset = 1;
+    while (_pos.x - offset >= 0 && _pos.y + offset < 9) {
+        ret.push_back({_pos.x - offset, _pos.y + offset});
+        offset++;
+    }
+    // down-right direction
+    offset = 1;
+    while (_pos.x + offset < 9 && _pos.y + offset < 9) {
+        ret.push_back({_pos.x + offset, _pos.y + offset});
+        offset++;
+    }
+
+    // pomoted extra
+    if (_isPromoted) {
+        if (_pos.x - 1 >= 0) { ret.push_back({_pos.x - 1, _pos.y}); }
+        if (_pos.x + 1 < 9) { ret.push_back({_pos.x + 1, _pos.y}); }
+        if (_pos.y - 1 >= 0) { ret.push_back({_pos.x, _pos.y - 1}); }
+        if (_pos.y + 1 < 9) { ret.push_back({_pos.x, _pos.y + 1}); }
+    }
+
+    return ret;
 }

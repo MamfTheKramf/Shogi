@@ -9,6 +9,7 @@ class TestBishop : public QObject
 
 private slots:
     void testGetReachableFields();
+    void testGetReachableFieldsPromoted();
 
 };
 
