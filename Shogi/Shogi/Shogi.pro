@@ -11,11 +11,13 @@ CONFIG += c++11
 
 SOURCES += \
     Board.cpp \
+    Knight.cpp \
     Lance.cpp \
     Pawn.cpp \
     Piece.cpp \
     Position.cpp \
     TestGeneral.cpp \
+    TestKnight.cpp \
     TestLance.cpp \
     TestPawn.cpp \
     Tests.cpp \
@@ -24,12 +26,14 @@ SOURCES += \
 
 HEADERS += \
     Board.h \
+    Knight.h \
     Lance.h \
     MainWindow.h \
     Pawn.h \
     Piece.h \
     Position.h \
     TestGeneral.h \
+    TestKnight.h \
     TestLance.h \
     TestPawn.h \
     functions.h

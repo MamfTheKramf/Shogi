@@ -1,14 +1,17 @@
 #include "TestGeneral.h"
 #include "TestPawn.h"
 #include "TestLance.h"
+#include "TestKnight.h"
 
 void runTests() {
     TestGeneral tGeneral;
-    QTest::qExec(&tGeneral);
-
     TestPawn tPawn;
-    //QTest::qExec(&tPawn);
-
     TestLance tLance;
-    //QTest::qExec(&tLance);
+    TestKnight tKnight;
+
+
+    QTest::qExec(&tGeneral);
+    QTest::qExec(&tPawn);
+    QTest::qExec(&tLance);
+    QTest::qExec(&tKnight);
 }
