@@ -33,7 +33,8 @@ private:
     using Data = std::array<std::array<std::shared_ptr<Piece>, 9>, 9>;
     Data _data;
 
-    int _fieldWidth = 20;
+    int _offset = 5;
+    int _fieldWidth = 60;
 
     // stores how many of each pieces are catured by each player
     std::array<int, 8> _capturedBlack;
