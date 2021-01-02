@@ -13,6 +13,7 @@
 #include <QPen>
 #include <QBrush>
 #include <QColor>
+#include <QPixmap>
 
 Board::Board(QWidget *parent) : QWidget(parent)
 {
@@ -36,7 +37,9 @@ void Board::paintEvent(QPaintEvent *event)
 {
     QPainter painter;
     painter.begin(this);
-
+    //look for better image
+    QPixmap pic("D:/Projekte/C++/Qt/Shogi/Shogi/Shogi/Assets/board.jpg");
+    painter.drawPixmap(0, 0, width(), height(), pic, 0, 0, 0, 0);
     //draw capturedWhite
     int y = _offset;
     for (int i = 0; i < 8; i++) {
