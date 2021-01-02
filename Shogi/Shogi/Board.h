@@ -26,12 +26,14 @@ protected:
     void mousePressEvent(QMouseEvent *event) override;
     void paintEvent(QPaintEvent *event) override;
 
+    void initBoard();
+
 private:
     // 2D-Array representing the board
     using Data = std::array<std::array<std::shared_ptr<Piece>, 9>, 9>;
     Data _data;
 
-    int fieldWidth = 20;
+    int _fieldWidth = 20;
 
     // stores how many of each pieces are catured by each player
     std::array<int, 8> _capturedBlack;
