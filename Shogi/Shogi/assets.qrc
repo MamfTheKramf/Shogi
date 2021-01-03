@@ -1,0 +1,13 @@
+<RCC>
+    <qresource prefix="/assets">
+        <file>Assets/Bishop.png</file>
+        <file>Assets/blackKing.png</file>
+        <file>Assets/board.jpg</file>
+        <file>Assets/goldGeneral.png</file>
+        <file>Assets/knight.png</file>
+        <file>Assets/lance.png</file>
+        <file>Assets/Rook.png</file>
+        <file>Assets/silverGeneral.png</file>
+        <file>Assets/whiteKing.png</file>
+    </qresource>
+</RCC>
