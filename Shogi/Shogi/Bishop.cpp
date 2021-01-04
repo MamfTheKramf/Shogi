@@ -1,6 +1,6 @@
 #include "Bishop.h"
 
-const QString Bishop::pic(":/assets/Assets/Bishop.png");
+const QString Bishop::pic(":/assets/Assets/bishop.png");
 
 Bishop::Bishop(Board::Team team):
     Piece({0, 0}, false, true, Piece::Type::Bishop, team)

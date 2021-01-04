@@ -1,6 +1,6 @@
 #include "Rook.h"
 
-const QString Rook::pic(":/assets/Assets/Rook.png");
+const QString Rook::pic(":/assets/Assets/rook.png");
 
 Rook::Rook(Board::Team team):
     Piece({0, 0}, false, true, Piece::Type::Rook, team)
