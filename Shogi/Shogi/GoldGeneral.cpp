@@ -1,5 +1,7 @@
 #include "GoldGeneral.h"
 
+const QString GoldGeneral::pic(":/assets/Assets/goldGeneral.png");
+
 GoldGeneral::GoldGeneral(Board::Team team):
     Piece({0, 0}, false, false, Piece::Type::GoldGeneral, team)
 {}
@@ -15,4 +17,9 @@ GoldGeneral::GoldGeneral(const Position &p, Board::Team team):
 std::vector<Position> GoldGeneral::getReachableFields() const
 {
     return getGoldGeneralReachableFields();
+}
+
+QString GoldGeneral::getPic() const
+{
+    return pic;
 }

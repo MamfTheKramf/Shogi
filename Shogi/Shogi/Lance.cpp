@@ -1,10 +1,10 @@
 #include "Lance.h"
 
+const QString Lance::pic(":/assets/Assets/lance.png");
+
 Lance::Lance(Board::Team team):
     Piece({0, 0}, false, true, Piece::Type::Lance, team)
-{
-
-}
+{}
 
 Lance::Lance(int x, int y, Board::Team team, bool promoted):
     Piece({x, y}, promoted, true, Piece::Type::Lance, team)
@@ -30,4 +30,9 @@ std::vector<Position> Lance::getReachableFields() const
     } else {
         return getGoldGeneralReachableFields();
     }
+}
+
+QString Lance::getPic() const
+{
+    return pic;
 }

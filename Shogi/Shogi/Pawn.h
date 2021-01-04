@@ -9,7 +9,9 @@
 
 class Pawn : public Piece
 {
+
 public:
+
     Pawn(Board::Team team);
 
     Pawn(int x, int y, Board::Team team, bool promoted = false);
@@ -17,6 +19,10 @@ public:
     Pawn(const Position& p, Board::Team team, bool promoted = false);
 
     std::vector<Position> getReachableFields() const override;
+
+    QString getPic() const override;
+
+    static const QString pic;
 };
 
 #endif // PAWN_H

@@ -1,5 +1,7 @@
 #include "SilverGeneral.h"
 
+const QString SilverGeneral::pic(":/assets/Assets/silverGeneral.png");
+
 SilverGeneral::SilverGeneral(Board::Team team):
     Piece({0, 0}, false, true, Piece::Type::SilverGeneral, team)
 {}
@@ -41,4 +43,9 @@ std::vector<Position> SilverGeneral::getReachableFields() const {
     } else {
         return getGoldGeneralReachableFields();
     }
+}
+
+QString SilverGeneral::getPic() const
+{
+    return pic;
 }

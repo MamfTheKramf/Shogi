@@ -6,7 +6,7 @@ void runTests();
 
 int main(int argc, char *argv[])
 {
-    //runTests();
+    runTests();
 
     QApplication a(argc, argv);
     MainWindow w;

@@ -5,6 +5,10 @@
 
 class King : public Piece
 {
+private:
+    QString _blackPic;
+    QString _whitePic;
+
 public:
     King(Board::Team team);
 
@@ -13,6 +17,10 @@ public:
     King(const Position& p, Board::Team team);
 
     std::vector<Position> getReachableFields() const override;
+    QString getPic() const override;
+
+    static const QString blackPic;
+    static const QString whitePic;
 };
 
 #endif // KING_H

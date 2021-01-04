@@ -13,6 +13,10 @@ public:
     Lance(const Position& p, Board::Team team, bool promoted = false);
 
     std::vector<Position> getReachableFields() const override;
+
+    QString getPic() const override;
+
+    static const QString pic;
 };
 
 #endif // LANCE_H

@@ -1,5 +1,7 @@
 #include "Knight.h"
 
+const QString Knight::pic(":/assets/Assets/knight.png");
+
 Knight::Knight(Board::Team team):
     Piece({0, 0}, false, true, Piece::Type::Knight, team)
 {}
@@ -31,4 +33,9 @@ std::vector<Position> Knight::getReachableFields() const
     } else {
         return getGoldGeneralReachableFields();
     }
+}
+
+QString Knight::getPic() const
+{
+    return pic;
 }

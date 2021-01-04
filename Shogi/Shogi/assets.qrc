@@ -9,5 +9,6 @@
         <file>Assets/Rook.png</file>
         <file>Assets/silverGeneral.png</file>
         <file>Assets/whiteKing.png</file>
+        <file>Assets/pawn.png</file>
     </qresource>
 </RCC>

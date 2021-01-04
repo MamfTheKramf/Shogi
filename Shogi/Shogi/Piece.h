@@ -2,6 +2,7 @@
 #define PIECE_H
 
 #include <vector>
+#include <QString>
 
 #include "Board.h"
 #include "Position.h"
@@ -9,6 +10,7 @@
 class Piece
 {
 public:
+
     enum Type {
         Pawn,
         Lance,
@@ -41,9 +43,11 @@ public:
     void promote();
 
     virtual std::vector<Position> getReachableFields() const = 0;
-    // made this method part of the base class since so many pieces get this movement when promoted
+    virtual QString getPic() const = 0;
+
 
 protected:
+    // made this method part of the base class since so many pieces get this movement when promoted
     std::vector<Position> getGoldGeneralReachableFields() const;
 };
 

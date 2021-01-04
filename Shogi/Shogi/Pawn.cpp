@@ -1,5 +1,7 @@
 #include "Pawn.h"
 
+const QString Pawn::pic(":/assets/Assets/pawn.png");
+
 Pawn::Pawn(Board::Team team):
     Piece({0, 0}, false, true, Piece::Type::Pawn, team)
 {}
@@ -32,4 +34,9 @@ std::vector<Position> Pawn::getReachableFields() const {
         return getGoldGeneralReachableFields();
     }
 
+}
+
+QString Pawn::getPic() const
+{
+    return pic;
 }

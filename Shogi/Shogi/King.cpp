@@ -1,5 +1,8 @@
 #include "King.h"
 
+const QString King::blackPic(":/assets/Assets/blackKing.png");
+const QString King::whitePic(":/assets/Assets/whiteKing.png");
+
 King::King(Board::Team team):
     Piece({0, 0}, false, false, Piece::Type::King, team)
 {}
@@ -36,4 +39,12 @@ std::vector<Position> King::getReachableFields() const
         }
     }
     return ret;
+}
+
+QString King::getPic() const
+{
+    if (_team == Board::Team::Black) {
+        return blackPic;
+    }
+    return whitePic;
 }
