@@ -29,34 +29,94 @@ std::vector<Position> Bishop::getReachableFields() const
     // up-left direction
     int offset = 1;
     while (_pos.x - offset >= 0 && _pos.y - offset >= 0) {
-        ret.push_back({_pos.x - offset, _pos.y - offset});
+        Position p(_pos.x - offset, _pos.y - offset);
+        int res = _board ? _board->isOccupied(p) : -1;
+        // only add the position when there isn't a teammate on the field
+        if (res != _team) {
+            ret.push_back(p);
+        }
+        // stop moving in this direction when the field in't empty
+        if (res != -1) {
+            break;
+        }
         offset++;
     }
     // up-right direction
     offset = 1;
     while (_pos.x + offset < 9 && _pos.y - offset >= 0) {
-        ret.push_back({_pos.x + offset, _pos.y - offset});
+        Position p({_pos.x + offset, _pos.y - offset});
+        int res = _board ? _board->isOccupied(p) : -1;
+        // only add the position when there isn't a teammate on the field
+        if (res != _team) {
+            ret.push_back(p);
+        }
+        // stop moving in this direction when the field in't empty
+        if (res != -1) {
+            break;
+        }
         offset++;
     }
     // down-left direction
     offset = 1;
     while (_pos.x - offset >= 0 && _pos.y + offset < 9) {
-        ret.push_back({_pos.x - offset, _pos.y + offset});
+        Position p({_pos.x - offset, _pos.y + offset});
+        int res = _board ? _board->isOccupied(p) : -1;
+        // only add the position when there isn't a teammate on the field
+        if (res != _team) {
+            ret.push_back(p);
+        }
+        // stop moving in this direction when the field in't empty
+        if (res != -1) {
+            break;
+        }
         offset++;
     }
     // down-right direction
     offset = 1;
     while (_pos.x + offset < 9 && _pos.y + offset < 9) {
-        ret.push_back({_pos.x + offset, _pos.y + offset});
+        Position p({_pos.x + offset, _pos.y + offset});
+        int res = _board ? _board->isOccupied(p) : -1;
+        // only add the position when there isn't a teammate on the field
+        if (res != _team) {
+            ret.push_back(p);
+        }
+        // stop moving in this direction when the field in't empty
+        if (res != -1) {
+            break;
+        }
         offset++;
     }
 
     // pomoted extra
     if (_isPromoted) {
-        if (_pos.x - 1 >= 0) { ret.push_back({_pos.x - 1, _pos.y}); }
-        if (_pos.x + 1 < 9) { ret.push_back({_pos.x + 1, _pos.y}); }
-        if (_pos.y - 1 >= 0) { ret.push_back({_pos.x, _pos.y - 1}); }
-        if (_pos.y + 1 < 9) { ret.push_back({_pos.x, _pos.y + 1}); }
+        if (_pos.x - 1 >= 0) {
+            Position p({_pos.x - 1, _pos.y});
+            int res = _board ? _board->isOccupied(p) : -1;
+            if (res != _team) {
+                ret.push_back(p);
+            }
+        }
+        if (_pos.x + 1 < 9) {
+            Position p({_pos.x + 1, _pos.y});
+            int res = _board ? _board->isOccupied(p) : -1;
+            if (res != _team) {
+                ret.push_back(p);
+            }
+        }
+        if (_pos.y - 1 >= 0) {
+            Position p({_pos.x, _pos.y - 1});
+            int res = _board ? _board->isOccupied(p) : -1;
+            if (res != _team) {
+                ret.push_back(p);
+            }
+        }
+        if (_pos.y + 1 < 9) {
+            Position p({_pos.x, _pos.y + 1});
+            int res = _board ? _board->isOccupied(p) : -1;
+            if (res != _team) {
+                ret.push_back(p);
+            }
+        }
     }
 
     return ret;
