@@ -31,10 +31,12 @@ std::vector<Position> Knight::getReachableFields() const
             return ret;
 
         // since we can't overshoot the right border by substracting 1 from the x-Pos, we only check one side
-        if (_pos.x - 1 >= 0)
+        if (_pos.x - 1 >= 0
+                && (!_board || _board->isOccupied({_pos.x-1, y}) != _team))
             ret.push_back({_pos.x - 1, y});
 
-        if (_pos.x + 1 < 9)
+        if (_pos.x + 1 < 9
+                && (!_board || _board->isOccupied({_pos.x+1, y}) != _team))
             ret.push_back({_pos.x + 1, y});
 
         return ret;
