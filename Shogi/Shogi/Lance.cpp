@@ -31,7 +31,13 @@ std::vector<Position> Lance::getReachableFields() const
         while ((_team == Board::Team::Black && _pos.y - offset >= 0)
                || (_team == Board::Team::White && _pos.y + offset < 9)) {
             int y = _team == Board::Team::Black ? _pos.y - offset : _pos.y + offset;
-            ret.push_back({_pos.x, y});
+            int res = _board ? _board->isOccupied({_pos.x, y}) : -1;
+            if (res != _team) {
+                ret.push_back({_pos.x, y});
+            }
+            if (res != -1) {
+                break;
+            }
             offset++;
         }
         return ret;
