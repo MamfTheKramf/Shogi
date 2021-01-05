@@ -5,10 +5,12 @@
 #include <array>
 #include <vector>
 #include <memory>
+#include <QString>
 
 #include "Position.h"
 
 class Piece;
+class QPainter;
 
 class Board : public QWidget
 {
@@ -27,6 +29,7 @@ protected:
     void paintEvent(QPaintEvent *event) override;
 
     void initBoard();
+    void drawPiece(QPainter* painter, float x, float y, float w, float h, Board::Team team, const QString& url);
 
 private:
     // 2D-Array representing the board
