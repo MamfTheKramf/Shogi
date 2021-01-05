@@ -247,6 +247,7 @@ void Board::drawPiece(QPainter* painter, float x, float y, float w, float h, Boa
             m.rotate(180);
             pic = pic.transformed(m);
         }
+        pic = pic.scaledToWidth(w, Qt::SmoothTransformation); // looks a bit better but is slower
         auto renderHints = painter->renderHints();
         painter->setRenderHint(QPainter::HighQualityAntialiasing);
         painter->drawPixmap(x, y, w, h, pic, 0, 0, 0, 0);
