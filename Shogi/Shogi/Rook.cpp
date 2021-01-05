@@ -27,34 +27,66 @@ std::vector<Position> Rook::getReachableFields() const {
 
     // up
     for (int y = _pos.y - 1; y >= 0; y--) {
-        ret.push_back({_pos.x, y});
+        int res = _board ? _board->isOccupied({_pos.x, y}) : -1;
+        if (res != _team) {
+            ret.push_back({_pos.x, y});
+        }
+        if (res != -1) {
+            break;
+        }
     }
     // down
     for (int y = _pos.y + 1; y < 9; y++) {
-        ret.push_back({_pos.x, y});
+        int res = _board ? _board->isOccupied({_pos.x, y}) : -1;
+        if (res != _team) {
+            ret.push_back({_pos.x, y});
+        }
+        if (res != -1) {
+            break;
+        }
     }
     // left
     for (int x = _pos.x - 1; x >= 0; x --) {
-        ret.push_back({x, _pos.y});
+        int res = _board ? _board->isOccupied({x, _pos.y}) : -1;
+        if (res != _team) {
+            ret.push_back({x, _pos.y});
+        }
+        if (res != -1) {
+            break;
+        }
     }
     // right
     for (int x = _pos.x + 1; x < 9; x ++) {
-        ret.push_back({x, _pos.y});
+        int res = _board ? _board->isOccupied({x, _pos.y}) : -1;
+        if (res != _team) {
+            ret.push_back({x, _pos.y});
+        }
+        if (res != -1) {
+            break;
+        }
     }
 
     // diagonal fields for promoted rooks
     if (_isPromoted) {
         if (_pos.x - 1 >= 0 && _pos.y - 1 >= 0) {
-            ret.push_back({_pos.x - 1, _pos.y - 1});
+            if (!_board || _board->isOccupied({_pos.x - 1, _pos.y - 1}) != _team) {
+                ret.push_back({_pos.x - 1, _pos.y - 1});
+            }
         }
         if (_pos.x - 1 >= 0 && _pos.y + 1 < 9) {
-            ret.push_back({_pos.x - 1, _pos.y + 1});
+            if (!_board || _board->isOccupied({_pos.x - 1, _pos.y + 1}) != _team) {
+                ret.push_back({_pos.x - 1, _pos.y + 1});
+            }
         }
         if (_pos.x + 1 < 9 && _pos.y - 1 >= 0) {
-            ret.push_back({_pos.x + 1, _pos.y - 1});
+            if (!_board || _board->isOccupied({_pos.x + 1, _pos.y - 1}) != _team) {
+                ret.push_back({_pos.x + 1, _pos.y - 1});
+            }
         }
         if (_pos.x + 1 < 9 && _pos.y + 1 < 9) {
-            ret.push_back({_pos.x + 1, _pos.y + 1});
+            if (!_board || _board->isOccupied({_pos.x + 1, _pos.y + 1}) != _team) {
+                ret.push_back({_pos.x + 1, _pos.y + 1});
+            }
         }
     }
 
