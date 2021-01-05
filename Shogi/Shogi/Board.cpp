@@ -36,6 +36,14 @@ Board::Board(QWidget *parent) : QWidget(parent)
     update();
 }
 
+int Board::isOccupied(Position p)
+{
+    if (_data[p.x][p.y]) {
+        return _data[p.x][p.y]->getTeam();
+    }
+    return -1;
+}
+
 void Board::mousePressEvent(QMouseEvent *event)
 {
     int x = event->x();

@@ -24,6 +24,7 @@ SOURCES += \
     Rook.cpp \
     SilverGeneral.cpp \
     Test/TestBishop.cpp \
+    Test/TestBoard.cpp \
     Test/TestGeneral.cpp \
     Test/TestGoldGeneral.cpp \
     Test/TestKing.cpp \
@@ -50,6 +51,7 @@ HEADERS += \
     Rook.h \
     SilverGeneral.h \
     Test/TestBishop.h \
+    Test/TestBoard.h \
     Test/TestGeneral.h \
     Test/TestGoldGeneral.h \
     Test/TestKing.h \

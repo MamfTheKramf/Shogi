@@ -7,6 +7,7 @@
 #include "TestBishop.h"
 #include "TestRook.h"
 #include "TestKing.h"
+#include "TestBoard.h"
 
 void runTests() {
     TestGeneral tGeneral;
@@ -18,6 +19,7 @@ void runTests() {
     TestBishop tBishop;
     TestRook tRook;
     TestKing tKing;
+    TestBoard tBoard;
 
 
     QTest::qExec(&tGeneral);
@@ -29,4 +31,5 @@ void runTests() {
     QTest::qExec(&tBishop);
     QTest::qExec(&tRook);
     QTest::qExec(&tKing);
+    QTest::qExec(&tBoard);
 }

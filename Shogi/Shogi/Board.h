@@ -24,6 +24,8 @@ public:
 
     explicit Board(QWidget *parent = nullptr);
 
+    int isOccupied(Position p);
+
 protected:
     void mousePressEvent(QMouseEvent *event) override;
     void paintEvent(QPaintEvent *event) override;
