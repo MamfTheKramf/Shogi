@@ -9,6 +9,7 @@
 #include "Rook.h"
 #include "King.h"
 
+#include <random>
 #include <QPainter>
 #include <QPen>
 #include <QBrush>
@@ -16,6 +17,7 @@
 #include <QPixmap>
 #include <QImage>
 #include <QTransform>
+#include <QMouseEvent>
 #include <QDebug>
 
 Board::Board(QWidget *parent) : QWidget(parent)
@@ -34,11 +36,19 @@ Board::Board(QWidget *parent) : QWidget(parent)
 
 void Board::mousePressEvent(QMouseEvent *event)
 {
-
+    int x = event->x();
+    int y = event->y();
+    Position p = getClickedField(x, y);
+    if (_data[p.x][p.y]) {
+        _selectedField = p;
+        _highlightedFields = _data[p.x][p.y]->getReachableFields();
+    }
+    update();
 }
 
 void Board::paintEvent(QPaintEvent *event)
 {
+
     QPainter painter;
     painter.begin(this);
     //look for better image
@@ -59,11 +69,11 @@ void Board::paintEvent(QPaintEvent *event)
         int y = 2 * _offset + (i+1) * _fieldWidth;
         for (int j = 0; j < 9; j++) {
             int x = _offset + j * _fieldWidth;
-            if (_selectedField == Position(i, j)) {
+            if (_selectedField == Position(j, i)) {
                 QBrush b(QColor(50, 150, 50, 100));
                 painter.setBrush(b);
             }
-            if (std::count(_highlightedFields.begin(), _highlightedFields.end(), Position(i, j)) >= 1) {
+            if (std::count(_highlightedFields.begin(), _highlightedFields.end(), Position(j, i)) >= 1) {
                 QBrush b(QColor(50, 50, 50, 50));
                 painter.setBrush(b);
             }
@@ -216,7 +226,7 @@ void Board::initBoard()
     }
 }
 
-void Board::drawPiece(QPainter* painter, float x, float y, float w, float h, Board::Team team, const QString& url)
+void Board::drawPiece(QPainter* painter, float x, float y, float w, float h, Board::Team team, const QString& url) const
 {
     if (painter && !url.isEmpty()) {
         QPixmap pic(url);
@@ -229,5 +239,22 @@ void Board::drawPiece(QPainter* painter, float x, float y, float w, float h, Boa
         painter->setRenderHint(QPainter::HighQualityAntialiasing);
         painter->drawPixmap(x, y, w, h, pic, 0, 0, 0, 0);
         painter->setRenderHints(renderHints);
+    }
+}
+
+Position Board::getClickedField(int x, int y) const
+{
+    // we clicked on whiteCaptured block
+    if (y >= _offset && y <= 2*_offset + _fieldWidth) {
+        return {-1, -1};
+    // we clicked on the main board
+    } else if (y >= 2*_offset + _fieldWidth && y <= 3*_offset + 10*_fieldWidth) {
+        Position ret;
+        ret.x = (x - _offset) / _fieldWidth;
+        ret.y = (y - 2*_offset - _fieldWidth) / _fieldWidth;
+        return ret;
+    // we clicked on blackCaptured block
+    } else if (y >= 3*_offset + 10*_fieldWidth && y <= height() - _offset) {
+        return {-1, -1};
     }
 }

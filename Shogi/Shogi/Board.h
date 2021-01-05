@@ -29,7 +29,9 @@ protected:
     void paintEvent(QPaintEvent *event) override;
 
     void initBoard();
-    void drawPiece(QPainter* painter, float x, float y, float w, float h, Board::Team team, const QString& url);
+    void drawPiece(QPainter* painter, float x, float y, float w, float h, Board::Team team, const QString& url) const;
+    Position getClickedField(int x, int y) const;
+
 
 private:
     // 2D-Array representing the board
