@@ -28,10 +28,11 @@ protected:
     const bool _isPromotable;
     const Piece::Type _type;
     Board::Team _team;
+    Board* _board;
 
 public:
 
-    Piece(Position p, bool promoted, bool promotable, Piece::Type ty, Board::Team team);
+    Piece(Position p, bool promoted, bool promotable, Piece::Type ty, Board::Team team, Board* board = nullptr);
 
     Position getPos() const;
     void setPos(int x, int y);

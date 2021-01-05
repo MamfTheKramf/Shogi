@@ -14,6 +14,14 @@ Bishop::Bishop(const Position &p, Board::Team team, bool promoted):
     Piece(p, promoted, true, Piece::Type::Bishop, team)
 {}
 
+Bishop::Bishop(Board *board, int x, int y, Board::Team team, bool promoted):
+    Piece({x, y}, promoted, true, Piece::Type::Bishop, team, board)
+{}
+
+Bishop::Bishop(Board *board, const Position &p, Board::Team team, bool promoted):
+    Piece(p, promoted, true, Piece::Type::Bishop, team, board)
+{}
+
 std::vector<Position> Bishop::getReachableFields() const
 {
     std::vector<Position> ret;

@@ -14,6 +14,14 @@ GoldGeneral::GoldGeneral(const Position &p, Board::Team team):
     Piece(p, false, false, Piece::Type::GoldGeneral, team)
 {}
 
+GoldGeneral::GoldGeneral(Board *board, int x, int y, Board::Team team, bool promoted):
+    Piece({x, y}, promoted, true, Piece::Type::GoldGeneral, team, board)
+{}
+
+GoldGeneral::GoldGeneral(Board *board, const Position &p, Board::Team team, bool promoted):
+    Piece(p, promoted, true, Piece::Type::GoldGeneral, team, board)
+{}
+
 std::vector<Position> GoldGeneral::getReachableFields() const
 {
     return getGoldGeneralReachableFields();

@@ -14,6 +14,14 @@ Knight::Knight(const Position &p, Board::Team team, bool promoted):
     Piece(p, promoted, true, Piece::Type::Knight, team)
 {}
 
+Knight::Knight(Board *board, int x, int y, Board::Team team, bool promoted):
+    Piece({x, y}, promoted, true, Piece::Type::Knight, team, board)
+{}
+
+Knight::Knight(Board *board, const Position &p, Board::Team team, bool promoted):
+    Piece(p, promoted, true, Piece::Type::Knight, team, board)
+{}
+
 std::vector<Position> Knight::getReachableFields() const
 {
     if(!_isPromoted) {

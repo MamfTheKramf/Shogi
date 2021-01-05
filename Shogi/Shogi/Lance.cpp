@@ -14,6 +14,14 @@ Lance::Lance(const Position &p, Board::Team team, bool promoted):
     Piece(p, promoted, true, Piece::Type::Lance, team)
 {}
 
+Lance::Lance(Board *board, int x, int y, Board::Team team, bool promoted):
+    Piece({x, y}, promoted, true, Piece::Type::Lance, team, board)
+{}
+
+Lance::Lance(Board *board, const Position &p, Board::Team team, bool promoted):
+    Piece(p, promoted, true, Piece::Type::Lance, team, board)
+{}
+
 std::vector<Position> Lance::getReachableFields() const
 {
 

@@ -16,6 +16,10 @@ public:
 
     King(const Position& p, Board::Team team);
 
+    King(Board* board, int x, int y, Board::Team team, bool promoted = false);
+
+    King(Board* board, const Position& p, Board::Team team, bool promoted = false);
+
     std::vector<Position> getReachableFields() const override;
     QString getPic() const override;
 

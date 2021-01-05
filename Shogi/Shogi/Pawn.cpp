@@ -14,6 +14,14 @@ Pawn::Pawn(const Position &p, Board::Team team, bool promoted):
     Piece(p, promoted, true, Piece::Type::Pawn, team)
 {}
 
+Pawn::Pawn(Board *board, int x, int y, Board::Team team, bool promoted):
+    Piece({x, y}, promoted, true, Piece::Type::Pawn, team, board)
+{}
+
+Pawn::Pawn(Board *board, const Position &p, Board::Team team, bool promoted):
+    Piece(p, promoted, true, Piece::Type::Pawn, team, board)
+{}
+
 std::vector<Position> Pawn::getReachableFields() const {
     std::vector<Position> ret;
     if (!_isPromoted) {

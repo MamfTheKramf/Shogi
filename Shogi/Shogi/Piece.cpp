@@ -1,11 +1,12 @@
 #include "Piece.h"
 
-Piece::Piece(Position p, bool promoted, bool promotable, Piece::Type ty, Board::Team team):
+Piece::Piece(Position p, bool promoted, bool promotable, Piece::Type ty, Board::Team team, Board* board):
     _pos(p),
     _isPromoted(promoted),
     _isPromotable(promotable),
     _type(ty),
-    _team(team)
+    _team(team),
+    _board(board)
 {}
 
 Position Piece::getPos() const

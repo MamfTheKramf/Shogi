@@ -48,7 +48,7 @@ void Board::mousePressEvent(QMouseEvent *event)
     update();
 }
 
-void Board::paintEvent(QPaintEvent *event)
+void Board::paintEvent(QPaintEvent * /*event*/)
 {
 
     QPainter painter;
@@ -117,8 +117,8 @@ void Board::initBoard()
 
     // create Pawns
     for (int i = 0; i < 9; i++) {
-        std::shared_ptr<Piece> bPawn = std::make_shared<Pawn>(i, 6, Board::Team::Black);
-        std::shared_ptr<Piece> wPawn = std::make_shared<Pawn>(i, 2, Board::Team::White);
+        std::shared_ptr<Piece> bPawn = std::make_shared<Pawn>(this, i, 6, Board::Team::Black);
+        std::shared_ptr<Piece> wPawn = std::make_shared<Pawn>(this, i, 2, Board::Team::White);
         _boardBlack.push_back(bPawn);
         _boardWhite.push_back(wPawn);
         _data[i][6] = bPawn;
@@ -126,103 +126,103 @@ void Board::initBoard()
     }
 
     {// create Lances
-        std::shared_ptr<Piece> lance = std::make_shared<Lance>(0, 8, Board::Team::Black);
+        std::shared_ptr<Piece> lance = std::make_shared<Lance>(this, 0, 8, Board::Team::Black);
         _boardBlack.push_back(lance);
         _data[0][8] = lance;
 
-        lance = std::make_shared<Lance>(8, 8, Board::Team::Black);
+        lance = std::make_shared<Lance>(this, 8, 8, Board::Team::Black);
         _boardBlack.push_back(lance);
         _data[8][8] = lance;
 
-        lance = std::make_shared<Lance>(0, 0, Board::Team::White);
+        lance = std::make_shared<Lance>(this, 0, 0, Board::Team::White);
         _boardWhite.push_back(lance);
         _data[0][0] = lance;
 
-        lance = std::make_shared<Lance>(8, 0, Board::Team::White);
+        lance = std::make_shared<Lance>(this, 8, 0, Board::Team::White);
         _boardWhite.push_back(lance);
         _data[8][0] = lance;
     }
 
     { //drawing Knights
-        std::shared_ptr<Piece> knight = std::make_shared<Knight>(1, 8, Board::Team::Black);
+        std::shared_ptr<Piece> knight = std::make_shared<Knight>(this, 1, 8, Board::Team::Black);
         _boardBlack.push_back(knight);
         _data[1][8] = knight;
 
-        knight = std::make_shared<Knight>(7, 8, Board::Team::Black);
+        knight = std::make_shared<Knight>(this, 7, 8, Board::Team::Black);
         _boardBlack.push_back(knight);
         _data[7][8] = knight;
 
-        knight = std::make_shared<Knight>(1, 0, Board::Team::White);
+        knight = std::make_shared<Knight>(this, 1, 0, Board::Team::White);
         _boardWhite.push_back(knight);
         _data[1][0] = knight;
 
-        knight = std::make_shared<Knight>(7, 0, Board::Team::White);
+        knight = std::make_shared<Knight>(this, 7, 0, Board::Team::White);
         _boardWhite.push_back(knight);
         _data[7][0] = knight;
     }
 
     { //drawing SilverGenerals
-        std::shared_ptr<Piece> sg = std::make_shared<SilverGeneral>(2, 8, Board::Team::Black);
+        std::shared_ptr<Piece> sg = std::make_shared<SilverGeneral>(this, 2, 8, Board::Team::Black);
         _boardBlack.push_back(sg);
         _data[2][8] = sg;
 
-        sg = std::make_shared<SilverGeneral>(6, 8, Board::Team::Black);
+        sg = std::make_shared<SilverGeneral>(this, 6, 8, Board::Team::Black);
         _boardBlack.push_back(sg);
         _data[6][8] = sg;
 
-        sg = std::make_shared<SilverGeneral>(2, 0, Board::Team::White);
+        sg = std::make_shared<SilverGeneral>(this, 2, 0, Board::Team::White);
         _boardWhite.push_back(sg);
         _data[2][0] = sg;
 
-        sg = std::make_shared<SilverGeneral>(6, 0, Board::Team::White);
+        sg = std::make_shared<SilverGeneral>(this, 6, 0, Board::Team::White);
         _boardWhite.push_back(sg);
         _data[6][0] = sg;
     }
 
     { //drawing GolgGenerals
-        std::shared_ptr<Piece> gg = std::make_shared<GoldGeneral>(3, 8, Board::Team::Black);
+        std::shared_ptr<Piece> gg = std::make_shared<GoldGeneral>(this, 3, 8, Board::Team::Black);
         _boardBlack.push_back(gg);
         _data[3][8] = gg;
 
-        gg = std::make_shared<GoldGeneral>(5, 8, Board::Team::Black);
+        gg = std::make_shared<GoldGeneral>(this, 5, 8, Board::Team::Black);
         _boardBlack.push_back(gg);
         _data[5][8] = gg;
 
-        gg = std::make_shared<GoldGeneral>(3, 0, Board::Team::White);
+        gg = std::make_shared<GoldGeneral>(this, 3, 0, Board::Team::White);
         _boardWhite.push_back(gg);
         _data[3][0] = gg;
 
-        gg = std::make_shared<GoldGeneral>(5, 0, Board::Team::White);
+        gg = std::make_shared<GoldGeneral>(this, 5, 0, Board::Team::White);
         _boardWhite.push_back(gg);
         _data[5][0] = gg;
     }
 
     { //drawing Kings
-        std::shared_ptr<Piece> king = std::make_shared<King>(4, 8, Board::Team::Black);
+        std::shared_ptr<Piece> king = std::make_shared<King>(this, 4, 8, Board::Team::Black);
         _boardBlack.push_back(king);
         _data[4][8] = king;
 
-        king = std::make_shared<King>(4, 0, Board::Team::White);
+        king = std::make_shared<King>(this, 4, 0, Board::Team::White);
         _boardWhite.push_back(king);
         _data[4][0] = king;
     }
 
     { //drawing Bishops
-        std::shared_ptr<Piece> bishop = std::make_shared<Bishop>(1, 7, Board::Team::Black);
+        std::shared_ptr<Piece> bishop = std::make_shared<Bishop>(this, 1, 7, Board::Team::Black);
         _boardBlack.push_back(bishop);
         _data[1][7] = bishop;
 
-        bishop = std::make_shared<Bishop>(7, 1, Board::Team::White);
+        bishop = std::make_shared<Bishop>(this, 7, 1, Board::Team::White);
         _boardWhite.push_back(bishop);
         _data[7][1] = bishop;
     }
 
     { //drawing Rooks
-        std::shared_ptr<Piece> rook = std::make_shared<Rook>(7, 7, Board::Team::Black);
+        std::shared_ptr<Piece> rook = std::make_shared<Rook>(this, 7, 7, Board::Team::Black);
         _boardBlack.push_back(rook);
         _data[7][7] = rook;
 
-        rook = std::make_shared<Rook>(1, 1, Board::Team::White);
+        rook = std::make_shared<Rook>(this, 1, 1, Board::Team::White);
         _boardWhite.push_back(rook);
         _data[1][1] = rook;
     }
@@ -259,4 +259,5 @@ Position Board::getClickedField(int x, int y) const
     } else if (y >= 3*_offset + 10*_fieldWidth && y <= height() - _offset) {
         return {-1, -1};
     }
+    return {-1, -1};
 }

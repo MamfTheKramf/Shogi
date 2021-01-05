@@ -15,6 +15,14 @@ King::King(const Position &p, Board::Team team):
     Piece(p, false, false, Piece::Type::King, team)
 {}
 
+King::King(Board *board, int x, int y, Board::Team team, bool promoted):
+    Piece({x, y}, promoted, true, Piece::Type::King, team, board)
+{}
+
+King::King(Board *board, const Position &p, Board::Team team, bool promoted):
+    Piece(p, promoted, true, Piece::Type::King, team, board)
+{}
+
 std::vector<Position> King::getReachableFields() const
 {
     std::vector<Position> ret = getGoldGeneralReachableFields();
