@@ -25,7 +25,9 @@ Board::Board(QWidget *parent) : QWidget(parent)
     int w = 9 * _fieldWidth + 2 * _offset;
     int h = 11 * _fieldWidth + 4 * _offset;
     resize(w, h);
-    parent->resize(w, h);
+    if (parent) {
+        parent->resize(w, h);
+    }
     for (int i = 0; i < 8; i++) {
         _capturedBlack[i] = 0;
         _capturedWhite[i] = 0;

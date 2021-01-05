@@ -1,4 +1,5 @@
 #include "MainWindow.h"
+#include "Board.h"
 
 #include <QApplication>
 
@@ -9,7 +10,7 @@ int main(int argc, char *argv[])
     runTests();
 
     QApplication a(argc, argv);
-    MainWindow w;
-    w.show();
+    Board b(nullptr);
+    b.show();
     return a.exec();
 }
