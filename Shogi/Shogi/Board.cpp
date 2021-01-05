@@ -33,6 +33,8 @@ Board::Board(QWidget *parent) : QWidget(parent)
         _capturedWhite[i] = 0;
     }
     initBoard();
+
+    _background.load(":/assets/Assets/board.jpg");
     update();
 }
 
@@ -61,11 +63,11 @@ void Board::paintEvent(QPaintEvent * /*event*/)
 
     QPainter painter;
     painter.begin(this);
-    //look for better image
-    QPixmap pic(":/assets/Assets/board.jpg");
+
     painter.setRenderHint(QPainter::SmoothPixmapTransform);
-    painter.drawPixmap(0, 0, width(), height(), pic, 0, 0, 0, 0);
+    painter.drawPixmap(0, 0, width(), height(), _background, 0, 0, 0, 0);
     painter.setRenderHint(QPainter::HighQualityAntialiasing);
+
     //draw capturedWhite
     int y = _offset;
     for (int i = 0; i < 8; i++) {

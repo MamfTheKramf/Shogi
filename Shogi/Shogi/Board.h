@@ -56,6 +56,8 @@ private:
     Position _selectedField;
     std::vector<Position> _highlightedFields;
 
+    QPixmap _background;
+
 };
 
 #endif // BOARD_H
