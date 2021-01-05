@@ -56,7 +56,8 @@ std::vector<Position> Piece::getGoldGeneralReachableFields() const
             if ((y < 0 || y >= 9) //out of bound
                 || (_team == Board::Team::Black && y == _pos.y + 1 && x != _pos.x) // diagonal behind BLACK
                 || (_team == Board::Team::White && y == _pos.y - 1 && x != _pos.x) // diagonal behind WHITE
-                || (x == _pos.x && y == _pos.y)) // current Pos
+                || (x == _pos.x && y == _pos.y) // current Pos
+                || (_board && _board->isOccupied({x, y}) == _team)) // Pos of teammate
             {
                 continue;
             }
