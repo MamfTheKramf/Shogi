@@ -54,11 +54,21 @@ void Board::paintEvent(QPaintEvent *event)
     }
 
     //draw actual board
+    QBrush original = painter.brush();
     for (int i = 0; i < 9; i++) {
         int y = 2 * _offset + (i+1) * _fieldWidth;
         for (int j = 0; j < 9; j++) {
             int x = _offset + j * _fieldWidth;
+            if (_selectedField == Position(i, j)) {
+                QBrush b(QColor(50, 150, 50, 100));
+                painter.setBrush(b);
+            }
+            if (std::count(_highlightedFields.begin(), _highlightedFields.end(), Position(i, j)) >= 1) {
+                QBrush b(QColor(50, 50, 50, 50));
+                painter.setBrush(b);
+            }
             painter.drawRect(x, y, _fieldWidth, _fieldWidth);
+            painter.setBrush(original);
             if (_data[j][i]) {
                 drawPiece(&painter, x + _offset, y + _offset,
                           _fieldWidth - 2*_offset, _fieldWidth - 2*_offset,
