@@ -30,7 +30,9 @@ std::vector<Position> SilverGeneral::getReachableFields() const {
         if (y >= 0 && y < 9) { //only when y is in bound
             for (int x = _pos.x - 1; x <= _pos.x + 1; x++) {
                 if (x >= 0 && x < 9) {
-                    ret.push_back({x, y});
+                    if (!_board || _board->isOccupied({x, y}) != _team) {
+                        ret.push_back({x, y});
+                    }
                 }
             }
         }
@@ -38,10 +40,10 @@ std::vector<Position> SilverGeneral::getReachableFields() const {
         // two diagonal back fields
         y = _team == Board::Team::Black ? _pos.y + 1 : _pos.y - 1;
         if (y >= 0 && y < 9) {
-            if (_pos.x - 1 >= 0) {
+            if (_pos.x - 1 >= 0 && (!_board || _board->isOccupied({_pos.x - 1, y}) != _team)) {
                 ret.push_back({_pos.x - 1, y});
             }
-            if (_pos.x + 1 < 9) {
+            if (_pos.x + 1 < 9 && (!_board || _board->isOccupied({_pos.x + 1, y}) != _team)) {
                 ret.push_back({_pos.x + 1, y});
             }
         }
