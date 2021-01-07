@@ -1,4 +1,5 @@
 #include "King.h"
+#include <QDebug>
 
 const QString King::blackPic(":/assets/Assets/blackKing.png");
 const QString King::whitePic(":/assets/Assets/whiteKing.png");
@@ -25,24 +26,20 @@ King::King(Board *board, const Position &p, Board::Team team, bool promoted):
 
 std::vector<Position> King::getReachableFields() const
 {
-    std::vector<Position> ret = getGoldGeneralReachableFields();
-    // add the two missing diagonals
-    if (_team == Board::Team::Black) {
-        if (_pos.y + 1 < 9) {
-            if (_pos.x - 1 >= 0) {
-                ret.push_back({_pos.x - 1, _pos.y + 1});
-            }
-            if (_pos.x + 1 < 9) {
-                ret.push_back({_pos.x + 1, _pos.y + 1});
-            }
+    std::vector<Position> ret;
+    for (int x = _pos.x - 1; x <= _pos.x + 1; x++) {
+        if (x < 0 || x >= 9) {
+            continue;
         }
-    } else {
-        if (_pos.y - 1 >= 0) {
-            if (_pos.x - 1 >= 0) {
-                ret.push_back({_pos.x - 1, _pos.y - 1});
-            }
-            if (_pos.x + 1 < 9) {
-                ret.push_back({_pos.x + 1, _pos.y - 1});
+        for (int y = _pos.y - 1; y <= _pos.y + 1; y++) {
+            if (y >= 0 && y < 9) {
+                Board::Team opp = _team == Board::Team::Black ? Board::Team::White : Board::Team::Black;
+                if ((_board && _board->isOccupied({x, y}) != _team
+                                && !_board->isSafe({x, y}, opp))
+                        || _pos == Position(x, y)) {
+                    continue;
+                }
+                ret.push_back({x, y});
             }
         }
     }
