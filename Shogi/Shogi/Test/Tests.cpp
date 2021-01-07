@@ -30,6 +30,6 @@ void runTests() {
 //    QTest::qExec(&tGG);
 //    QTest::qExec(&tBishop);
 //    QTest::qExec(&tRook);
-    QTest::qExec(&tKing);
-    QTest::qExec(&tBoard);
+//    QTest::qExec(&tKing);
+//    QTest::qExec(&tBoard);
 }
