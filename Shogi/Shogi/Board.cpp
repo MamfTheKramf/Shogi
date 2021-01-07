@@ -46,6 +46,25 @@ int Board::isOccupied(Position p)
     return -1;
 }
 
+bool Board::isSafe(Position p, Board::Team opponent)
+{
+    std::vector<std::shared_ptr<Piece>>& searchSpace = opponent == Board::Team::Black ? _boardBlack : _boardWhite;
+    for (auto piece : searchSpace) {
+        if (piece->getType() != Piece::Type::King) {
+            std::vector<Position> res = piece->getReachableFields();
+            if (std::count(res.begin(), res.end(), p) > 0) {
+                return false;
+            }
+        } else {
+            if (abs(p.x - piece->getPos().x) <= 1
+                    && abs(p.y - piece->getPos().y) <= 1) {
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
 void Board::mousePressEvent(QMouseEvent *event)
 {
     int x = event->x();

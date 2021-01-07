@@ -26,6 +26,8 @@ public:
 
     int isOccupied(Position p);
 
+    bool isSafe(Position p, Board::Team opponent);
+
 protected:
     void mousePressEvent(QMouseEvent *event) override;
     void paintEvent(QPaintEvent *event) override;

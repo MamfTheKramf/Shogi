@@ -9,6 +9,7 @@ class TestBoard : public QObject
 
 private slots:
     void testIsOccupied();
+    void testIsSafe();
 };
 
 #endif // TESTBOARD_H
