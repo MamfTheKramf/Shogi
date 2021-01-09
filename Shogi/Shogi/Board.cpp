@@ -9,6 +9,7 @@
 #include "Rook.h"
 #include "King.h"
 
+#include <algorithm>
 #include <random>
 #include <QPainter>
 #include <QPen>
@@ -76,6 +77,12 @@ void Board::mousePressEvent(QMouseEvent *event)
     if (_data[p.x][p.y] && _data[p.x][p.y]->getTeam() == _activePlayer) {
         _selectedField = p;
         _highlightedFields = _data[p.x][p.y]->getReachableFields();
+
+    // when clicked on a highlighted field
+    } else if(std::count(_highlightedFields.begin(), _highlightedFields.end(), p)) {
+        move(_selectedField, p);
+        _selectedField = {-1, -1};
+        _highlightedFields.clear();
     }
 
 
@@ -307,4 +314,26 @@ void Board::updateWinTitle()
         title += "White";
     }
     setWindowTitle(title);
+}
+
+void Board::move(Position from, Position to)
+{
+    /*
+        this method doen't check if you move a piece on another friendly piece
+        this case should not happen
+    */
+
+    // first check if there is a piece to move
+    if (_data[from.x][from.y] && _data[from.x][from.y]->getTeam() == _activePlayer) {
+        std::shared_ptr<Piece> piece = _data[from.x][from.y];
+
+        // in case there is an enemy piece on that field, we need to take care of it
+        if (_data[to.x][to.y] && _data[to.x][to.y]->getTeam() != _activePlayer) {
+
+        }
+
+        piece->setPos(to.x, to.y);
+        _data[to.x][to.y] = piece;
+        _data[from.x][from.y].reset();
+    }
 }

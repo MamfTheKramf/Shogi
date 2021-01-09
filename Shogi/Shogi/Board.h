@@ -36,6 +36,7 @@ protected:
     void drawPiece(QPainter* painter, float x, float y, float w, float h, Board::Team team, const QString& url) const;
     Position getClickedField(int x, int y) const;
     void updateWinTitle();
+    void move(Position from, Position to);
 
 private:
     // 2D-Array representing the board
