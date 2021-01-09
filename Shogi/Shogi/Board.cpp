@@ -141,6 +141,7 @@ void Board::paintEvent(QPaintEvent * /*event*/)
 
     QPainter painter;
     painter.begin(this);
+    QBrush original = painter.brush();
 
     painter.setRenderHint(QPainter::SmoothPixmapTransform);
     painter.drawPixmap(0, 0, width(), height(), _background, 0, 0, 0, 0);
@@ -155,9 +156,16 @@ void Board::paintEvent(QPaintEvent * /*event*/)
     //draw capturedWhite
     int y = _offset;
     int x = width() - _offset - _fieldWidth;
+    int counter = 6 - _selectedField.x;
     for (int i = 0; i < 7; i++) {
         if (_numbersWhite[i] > 0) {
+            counter--;
+            if (counter == -1 && _selectedField.y == -1) {
+                QBrush b(QColor(50, 150, 50, 100));
+                painter.setBrush(b);
+            }
             painter.drawRect(x, y, _fieldWidth, _fieldWidth);
+            painter.setBrush(original);
             QString url;
             switch(i) {
             case Piece::Type::Pawn:
@@ -191,7 +199,6 @@ void Board::paintEvent(QPaintEvent * /*event*/)
     }
 
     //draw actual board
-    QBrush original = painter.brush();
     for (int i = 0; i < 9; i++) {
         int y = 2 * _offset + (i+1) * _fieldWidth;
         for (int j = 0; j < 9; j++) {
@@ -228,9 +235,16 @@ void Board::paintEvent(QPaintEvent * /*event*/)
     //draw capturedBlack
     y = 3 * _offset + 10 * _fieldWidth;
     x = _offset;
+    counter = _selectedField.x;
     for (int i = 0; i < 7; i++) {
         if (_numbersBlack[i] > 0) {
+            counter--;
+            if (counter == -1 && _selectedField.y == 9) {
+                QBrush b(QColor(50, 150, 50, 100));
+                painter.setBrush(b);
+            }
             painter.drawRect(x, y, _fieldWidth, _fieldWidth);
+            painter.setBrush(original);
             QString url;
             switch(i) {
             case Piece::Type::Pawn:
