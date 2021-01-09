@@ -14,6 +14,7 @@
 #include <QPainter>
 #include <QPen>
 #include <QBrush>
+#include <QFont>
 #include <QColor>
 #include <QPixmap>
 #include <QImage>
@@ -81,8 +82,6 @@ void Board::mousePressEvent(QMouseEvent *event)
         _selectedField = {-1, -1};
         _highlightedFields.clear();
         changePlayer();
-        qDebug() << _boardBlack.size() << "\t" << _boardWhite.size();
-        qDebug() << _capturedBlack.size() << "\t" << _capturedWhite.size();
     }
 
 
@@ -100,11 +99,52 @@ void Board::paintEvent(QPaintEvent * /*event*/)
     painter.drawPixmap(0, 0, width(), height(), _background, 0, 0, 0, 0);
     painter.setRenderHint(QPainter::HighQualityAntialiasing);
 
+    const int fontSize = 13;
+    QFont font;
+    font.setPixelSize(fontSize);
+    font.setBold(true);
+    painter.setFont(font);
+
     //draw capturedWhite
+    std::array<int, 7> numbers({0, 0, 0, 0, 0, 0, 0});
+    for (auto it : _capturedWhite) {
+        numbers[it->getType()]++;
+    }
     int y = _offset;
-    for (int i = 0; i < 8; i++) {
-        int x = _offset + (i+1) * _fieldWidth;
-        painter.drawRect(x, y, _fieldWidth, _fieldWidth);
+    int x = width() - _offset - _fieldWidth;
+    for (int i = 0; i < 7; i++) {
+        if (numbers[i] > 0) {
+            painter.drawRect(x, y, _fieldWidth, _fieldWidth);
+            QString url;
+            switch(i) {
+            case Piece::Type::Pawn:
+                url = Pawn::pic;
+                break;
+            case Piece::Type::Lance:
+                url = Lance::pic;
+                break;
+            case Piece::Type::Knight:
+                url = Knight::pic;
+                break;
+            case Piece::Type::SilverGeneral:
+                url = SilverGeneral::pic;
+                break;
+            case Piece::Type::GoldGeneral:
+                url = GoldGeneral::pic;
+                break;
+            case Piece::Type::Bishop:
+                url = Bishop::pic;
+                break;
+            case Piece::Type::Rook:
+                url = Bishop::pic;
+                break;
+            }
+            drawPiece(&painter, x + _offset, y + _offset,
+                      _fieldWidth - 2*_offset, _fieldWidth - 2*_offset,
+                      Board::Team::White, url);
+            painter.drawText(x + 2, y + _fieldWidth - 1, QString::number(numbers[i]));
+            x -= _fieldWidth;
+        }
     }
 
     //draw actual board
@@ -143,12 +183,47 @@ void Board::paintEvent(QPaintEvent * /*event*/)
     painter.setPen(p);
 
     //draw capturedBlack
-    y = 3 * _offset + 10 * _fieldWidth;
-    for (int i = 0; i < 8; i++) {
-        int x = _offset + i * _fieldWidth;
-        painter.drawRect(x, y, _fieldWidth, _fieldWidth);
-    }
 
+    numbers = {0, 0, 0, 0, 0, 0, 0};
+    for (auto it : _capturedBlack) {
+        numbers[it->getType()]++;
+    }
+    y = 3 * _offset + 10 * _fieldWidth;
+    x = _offset;
+    for (int i = 0; i < 7; i++) {
+        if (numbers[i] > 0) {
+            painter.drawRect(x, y, _fieldWidth, _fieldWidth);
+            QString url;
+            switch(i) {
+            case Piece::Type::Pawn:
+                url = Pawn::pic;
+                break;
+            case Piece::Type::Lance:
+                url = Lance::pic;
+                break;
+            case Piece::Type::Knight:
+                url = Knight::pic;
+                break;
+            case Piece::Type::SilverGeneral:
+                url = SilverGeneral::pic;
+                break;
+            case Piece::Type::GoldGeneral:
+                url = GoldGeneral::pic;
+                break;
+            case Piece::Type::Bishop:
+                url = Bishop::pic;
+                break;
+            case Piece::Type::Rook:
+                url = Bishop::pic;
+                break;
+            }
+            drawPiece(&painter, x + _offset, y + _offset,
+                      _fieldWidth - 2*_offset, _fieldWidth - 2*_offset,
+                      Board::Team::Black, url);
+            painter.drawText(x + 2, y + _fieldWidth - 1, QString::number(numbers[i]));
+            x += _fieldWidth;
+        }
+    }
     painter.end();
 }
 

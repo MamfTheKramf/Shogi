@@ -22,14 +22,14 @@ void runTests() {
     TestBoard tBoard;
 
 
-//    QTest::qExec(&tGeneral);
-//    QTest::qExec(&tPawn);
-//    QTest::qExec(&tLance);
-//    QTest::qExec(&tKnight);
-//    QTest::qExec(&tSG);
-//    QTest::qExec(&tGG);
-//    QTest::qExec(&tBishop);
-//    QTest::qExec(&tRook);
-//    QTest::qExec(&tKing);
+    QTest::qExec(&tGeneral);
+    QTest::qExec(&tPawn);
+    QTest::qExec(&tLance);
+    QTest::qExec(&tKnight);
+    QTest::qExec(&tSG);
+    QTest::qExec(&tGG);
+    QTest::qExec(&tBishop);
+    QTest::qExec(&tRook);
+    QTest::qExec(&tKing);
 //    QTest::qExec(&tBoard);
 }

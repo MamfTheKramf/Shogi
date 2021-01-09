@@ -46,7 +46,6 @@ public:
     virtual std::vector<Position> getReachableFields() const = 0;
     virtual QString getPic() const = 0;
 
-
 protected:
     // made this method part of the base class since so many pieces get this movement when promoted
     std::vector<Position> getGoldGeneralReachableFields() const;
