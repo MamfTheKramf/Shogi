@@ -33,8 +33,11 @@ Board::Board(QWidget *parent) : QWidget(parent)
         _capturedWhite[i] = 0;
     }
     initBoard();
+    _activePlayer = Board::Team::Black;
+    updateWinTitle();
 
     _background.load(":/assets/Assets/board.jpg");
+
     update();
 }
 
@@ -70,10 +73,13 @@ void Board::mousePressEvent(QMouseEvent *event)
     int x = event->x();
     int y = event->y();
     Position p = getClickedField(x, y);
-    if (_data[p.x][p.y]) {
+    if (_data[p.x][p.y] && _data[p.x][p.y]->getTeam() == _activePlayer) {
         _selectedField = p;
         _highlightedFields = _data[p.x][p.y]->getReachableFields();
     }
+
+
+    updateWinTitle();
     update();
 }
 
@@ -290,4 +296,15 @@ Position Board::getClickedField(int x, int y) const
         return {-1, -1};
     }
     return {-1, -1};
+}
+
+void Board::updateWinTitle()
+{
+    QString title = "Active Player: ";
+    if (_activePlayer == Board::Team::Black) {
+        title += "Black";
+    } else {
+        title += "White";
+    }
+    setWindowTitle(title);
 }
