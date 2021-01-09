@@ -22,7 +22,9 @@
 #include <QMouseEvent>
 #include <QDebug>
 
-Board::Board(QWidget *parent) : QWidget(parent)
+Board::Board(QWidget *parent) : QWidget(parent),
+    _numbersBlack({0, 0, 0, 0, 0, 0, 0}),
+    _numbersWhite({0, 0, 0, 0, 0, 0, 0})
 {
     int w = 9 * _fieldWidth + 2 * _offset;
     int h = 11 * _fieldWidth + 4 * _offset;
@@ -72,7 +74,53 @@ void Board::mousePressEvent(QMouseEvent *event)
     int x = event->x();
     int y = event->y();
     Position p = getClickedField(x, y);
-    if (_data[p.x][p.y] && _data[p.x][p.y]->getTeam() == _activePlayer) {
+    if (p.x < 0) {
+        return;
+
+    // when clicked on WhiteCaptrued block
+    } else if (p.y == -1) {
+        if (_activePlayer != Board::Team::White) {
+            return;
+        }
+        //check if there is a piece of the captured type
+        int clickCounter = 6 - p.x;
+        int clickedType = -1;
+        for (int i = 0; i < 7; i++) {
+            if (_numbersWhite[i] > 0) {
+                clickCounter--;
+                if (clickCounter < 0) {
+                    clickedType = i;
+                    break;
+                }
+            }
+        }
+        if (clickedType >= 0 && _numbersWhite[clickedType]) {
+            _selectedField = p;
+            _highlightedFields = {{4, 4}};
+        }
+
+    // when clicked on BlackCaptured block
+    }else if (p.y == 9) {
+        if (_activePlayer != Board::Team::Black) {
+            return;
+        }
+        int clickCounter = p.x;
+        int clickedType = -1;
+        for (int i = 0; i < 7; i++) {
+            if (_numbersBlack[i] > 0) {
+                clickCounter--;
+                if (clickCounter < 0) {
+                    clickedType = i;
+                    break;
+                }
+            }
+        }
+        if (clickedType >= 0 && _numbersBlack[clickedType]) {
+            _selectedField = p;
+            _highlightedFields = {{3, 2}};
+        }
+
+    } else if (_data[p.x][p.y] && _data[p.x][p.y]->getTeam() == _activePlayer) {
         _selectedField = p;
         _highlightedFields = _data[p.x][p.y]->getReachableFields();
 
@@ -106,14 +154,10 @@ void Board::paintEvent(QPaintEvent * /*event*/)
     painter.setFont(font);
 
     //draw capturedWhite
-    std::array<int, 7> numbers({0, 0, 0, 0, 0, 0, 0});
-    for (auto it : _capturedWhite) {
-        numbers[it->getType()]++;
-    }
     int y = _offset;
     int x = width() - _offset - _fieldWidth;
     for (int i = 0; i < 7; i++) {
-        if (numbers[i] > 0) {
+        if (_numbersWhite[i] > 0) {
             painter.drawRect(x, y, _fieldWidth, _fieldWidth);
             QString url;
             switch(i) {
@@ -142,7 +186,7 @@ void Board::paintEvent(QPaintEvent * /*event*/)
             drawPiece(&painter, x + _offset, y + _offset,
                       _fieldWidth - 2*_offset, _fieldWidth - 2*_offset,
                       Board::Team::White, url);
-            painter.drawText(x + 2, y + _fieldWidth - 1, QString::number(numbers[i]));
+            painter.drawText(x + 2, y + _fieldWidth - 1, QString::number(_numbersWhite[i]));
             x -= _fieldWidth;
         }
     }
@@ -183,15 +227,10 @@ void Board::paintEvent(QPaintEvent * /*event*/)
     painter.setPen(p);
 
     //draw capturedBlack
-
-    numbers = {0, 0, 0, 0, 0, 0, 0};
-    for (auto it : _capturedBlack) {
-        numbers[it->getType()]++;
-    }
     y = 3 * _offset + 10 * _fieldWidth;
     x = _offset;
     for (int i = 0; i < 7; i++) {
-        if (numbers[i] > 0) {
+        if (_numbersBlack[i] > 0) {
             painter.drawRect(x, y, _fieldWidth, _fieldWidth);
             QString url;
             switch(i) {
@@ -220,7 +259,7 @@ void Board::paintEvent(QPaintEvent * /*event*/)
             drawPiece(&painter, x + _offset, y + _offset,
                       _fieldWidth - 2*_offset, _fieldWidth - 2*_offset,
                       Board::Team::Black, url);
-            painter.drawText(x + 2, y + _fieldWidth - 1, QString::number(numbers[i]));
+            painter.drawText(x + 2, y + _fieldWidth - 1, QString::number(_numbersBlack[i]));
             x += _fieldWidth;
         }
     }
@@ -363,8 +402,11 @@ void Board::drawPiece(QPainter* painter, float x, float y, float w, float h, Boa
 Position Board::getClickedField(int x, int y) const
 {
     // we clicked on whiteCaptured block
-    if (y >= _offset && y <= 2*_offset + _fieldWidth) {
-        return {-1, -1};
+    if (y >= _offset && y <= 2*_offset + _fieldWidth && x >= _offset + 2*_fieldWidth) {
+        Position ret;
+        ret.x = (x - _offset - 2*_fieldWidth) / _fieldWidth;
+        ret.y = -1;
+        return ret;
     // we clicked on the main board
     } else if (y >= 2*_offset + _fieldWidth && y <= 3*_offset + 10*_fieldWidth) {
         Position ret;
@@ -372,8 +414,11 @@ Position Board::getClickedField(int x, int y) const
         ret.y = (y - 2*_offset - _fieldWidth) / _fieldWidth;
         return ret;
     // we clicked on blackCaptured block
-    } else if (y >= 3*_offset + 10*_fieldWidth && y <= height() - _offset) {
-        return {-1, -1};
+    } else if (y >= 3*_offset + 10*_fieldWidth && y <= height() - _offset && x <= _offset + 7*_fieldWidth) {
+        Position ret;
+        ret.x = (x - _offset) / _fieldWidth;
+        ret.y = 9;
+        return ret;
     }
     return {-1, -1};
 }
@@ -406,10 +451,10 @@ void Board::move(Position from, Position to)
             captured->setPos(-1, -1);
             if (_activePlayer == Board::Team::Black) {
                 _boardWhite.remove(captured);
-                _capturedBlack.push_back(std::move(captured));
+                _numbersBlack[captured->getType()]++;
             } else {
                 _boardBlack.remove(captured);
-                _capturedWhite.push_back(std::move(captured));
+                _numbersWhite[captured->getType()]++;
             }
         }
 

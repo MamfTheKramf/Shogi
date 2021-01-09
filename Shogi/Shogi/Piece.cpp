@@ -9,6 +9,11 @@ Piece::Piece(Position p, bool promoted, bool promotable, Piece::Type ty, Board::
     _board(board)
 {}
 
+Piece::~Piece()
+{
+    qDebug() << "Piece removed";
+}
+
 Position Piece::getPos() const
 {
     return _pos;

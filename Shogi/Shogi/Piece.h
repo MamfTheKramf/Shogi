@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <QString>
+#include <QDebug>
 
 #include "Board.h"
 #include "Position.h"
@@ -33,6 +34,8 @@ protected:
 public:
 
     Piece(Position p, bool promoted, bool promotable, Piece::Type ty, Board::Team team, Board* board = nullptr);
+
+    ~Piece();
 
     Position getPos() const;
     void setPos(int x, int y);
