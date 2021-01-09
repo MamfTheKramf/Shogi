@@ -187,7 +187,7 @@ void Board::paintEvent(QPaintEvent * /*event*/)
                 url = Bishop::pic;
                 break;
             case Piece::Type::Rook:
-                url = Bishop::pic;
+                url = Rook::pic;
                 break;
             }
             drawPiece(&painter, x + _offset, y + _offset,
@@ -266,7 +266,7 @@ void Board::paintEvent(QPaintEvent * /*event*/)
                 url = Bishop::pic;
                 break;
             case Piece::Type::Rook:
-                url = Bishop::pic;
+                url = Rook::pic;
                 break;
             }
             drawPiece(&painter, x + _offset, y + _offset,
@@ -453,9 +453,94 @@ void Board::move(Position from, Position to)
         this method doen't check if you move a piece on another friendly piece
         this case should not happen
     */
+    //drop from white
+    if (from.y == -1 && _activePlayer == Board::Team::White) {
+        int clickCounter = 6 - from.x;
+        int clickedType = -1;
+        for (int i = 0; i < 7; i++) {
+            if (_numbersWhite[i] > 0) {
+                clickCounter--;
+                if (clickCounter < 0) {
+                    clickedType = i;
+                    _numbersWhite[i]--;
+                    break;
+                }
+            }
+        }
+        std::shared_ptr<Piece> piece;
+        switch (clickedType) {
+        case Piece::Type::Pawn:
+            piece = std::make_shared<Pawn>(this, to, Board::Team::White);
+            break;
+        case Piece::Type::Lance:
+            piece = std::make_shared<Lance>(this, to, Board::Team::White);
+            break;
+        case Piece::Type::Knight:
+            piece = std::make_shared<Knight>(this, to, Board::Team::White);
+            break;
+        case Piece::Type::SilverGeneral:
+            piece = std::make_shared<SilverGeneral>(this, to, Board::Team::White);
+            break;
+        case Piece::Type::GoldGeneral:
+            piece = std::make_shared<GoldGeneral>(this, to, Board::Team::White);
+            break;
+        case Piece::Type::Bishop:
+            piece = std::make_shared<Bishop>(this, to, Board::Team::White);
+            break;
+        case Piece::Type::Rook:
+            piece = std::make_shared<Rook>(this, to, Board::Team::White);
+            break;
+        default:
+            return;
+        }
+        _boardWhite.push_back(piece);
+        _data[to.x][to.y] = piece;
 
-    // first check if there is a piece to move
-    if (_data[from.x][from.y] && _data[from.x][from.y]->getTeam() == _activePlayer) {
+    //drop from black
+    } else if (from.y == 9 && _activePlayer == Board::Team::Black) {
+        int clickCounter = from.x;
+        int clickedType = -1;
+        for (int i = 0; i < 7; i++) {
+            if (_numbersBlack[i] > 0) {
+                clickCounter--;
+                if (clickCounter < 0) {
+                    clickedType = i;
+                    _numbersBlack[i]--;
+                    break;
+                }
+            }
+        }
+        std::shared_ptr<Piece> piece;
+        switch (clickedType) {
+        case Piece::Type::Pawn:
+            piece = std::make_shared<Pawn>(this, to, Board::Team::Black);
+            break;
+        case Piece::Type::Lance:
+            piece = std::make_shared<Lance>(this, to, Board::Team::Black);
+            break;
+        case Piece::Type::Knight:
+            piece = std::make_shared<Knight>(this, to, Board::Team::Black);
+            break;
+        case Piece::Type::SilverGeneral:
+            piece = std::make_shared<SilverGeneral>(this, to, Board::Team::Black);
+            break;
+        case Piece::Type::GoldGeneral:
+            piece = std::make_shared<GoldGeneral>(this, to, Board::Team::Black);
+            break;
+        case Piece::Type::Bishop:
+            piece = std::make_shared<Bishop>(this, to, Board::Team::Black);
+            break;
+        case Piece::Type::Rook:
+            piece = std::make_shared<Rook>(this, to, Board::Team::Black);
+            break;
+        default:
+            return;
+        }
+        _boardBlack.push_back(piece);
+        _data[to.x][to.y] = piece;
+
+    // regular move on board
+    } else if (_data[from.x][from.y] && _data[from.x][from.y]->getTeam() == _activePlayer) {
         std::shared_ptr<Piece> piece = _data[from.x][from.y];
 
         // in case there is an enemy piece on that field, we need to take care of it
