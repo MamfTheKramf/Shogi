@@ -29,10 +29,7 @@ Board::Board(QWidget *parent) : QWidget(parent)
     if (parent) {
         parent->resize(w, h);
     }
-    for (int i = 0; i < 8; i++) {
-        _capturedBlack[i] = 0;
-        _capturedWhite[i] = 0;
-    }
+
     initBoard();
     _activePlayer = Board::Team::Black;
     updateWinTitle();
@@ -52,7 +49,7 @@ int Board::isOccupied(Position p)
 
 bool Board::isSafe(Position p, Board::Team opponent)
 {
-    std::vector<std::shared_ptr<Piece>>& searchSpace = opponent == Board::Team::Black ? _boardBlack : _boardWhite;
+    std::list<std::shared_ptr<Piece>>& searchSpace = opponent == Board::Team::Black ? _boardBlack : _boardWhite;
     for (auto piece : searchSpace) {
         if (piece->getType() != Piece::Type::King) {
             std::vector<Position> res = piece->getReachableFields();
@@ -84,6 +81,8 @@ void Board::mousePressEvent(QMouseEvent *event)
         _selectedField = {-1, -1};
         _highlightedFields.clear();
         changePlayer();
+        qDebug() << _boardBlack.size() << "\t" << _boardWhite.size();
+        qDebug() << _capturedBlack.size() << "\t" << _capturedWhite.size();
     }
 
 
@@ -155,8 +154,6 @@ void Board::paintEvent(QPaintEvent * /*event*/)
 
 void Board::initBoard()
 {
-    _boardBlack.reserve(20);
-    _boardWhite.reserve(20);
 
     // create Pawns
     for (int i = 0; i < 9; i++) {
@@ -330,11 +327,19 @@ void Board::move(Position from, Position to)
 
         // in case there is an enemy piece on that field, we need to take care of it
         if (_data[to.x][to.y] && _data[to.x][to.y]->getTeam() != _activePlayer) {
-
+            std::shared_ptr<Piece> captured = _data[to.x][to.y];
+            captured->setPos(-1, -1);
+            if (_activePlayer == Board::Team::Black) {
+                _boardWhite.remove(captured);
+                _capturedBlack.push_back(std::move(captured));
+            } else {
+                _boardBlack.remove(captured);
+                _capturedWhite.push_back(std::move(captured));
+            }
         }
 
         piece->setPos(to.x, to.y);
-        _data[to.x][to.y] = piece;
+        _data[to.x][to.y] = std::move(piece);
         _data[from.x][from.y].reset();
     }
 }

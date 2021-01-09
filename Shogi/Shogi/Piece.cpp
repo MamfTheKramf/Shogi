@@ -16,11 +16,15 @@ Position Piece::getPos() const
 
 void Piece::setPos(int x, int y)
 {
-    _pos = {x, y};
+    setPos({x, y});
 }
 
 void Piece::setPos(const Position &p)
 {
+    // when set to such a position the piece is captured and shall change the team
+    if (p.x < 0 && p.y < 0) {
+        changeTeam();
+    }
     _pos = p;
 }
 
@@ -66,4 +70,13 @@ std::vector<Position> Piece::getGoldGeneralReachableFields() const
         }
     }
     return ret;
+}
+
+void Piece::changeTeam()
+{
+    if (_team == Board::Team::Black) {
+        _team = Board::Team::White;
+    } else {
+        _team = Board::Team::Black;
+    }
 }

@@ -48,12 +48,12 @@ private:
     int _fieldWidth = 60;
 
     // stores how many of each pieces are catured by each player
-    std::array<int, 8> _capturedBlack;
-    std::array<int, 8> _capturedWhite;
+    std::list<std::shared_ptr<Piece>> _capturedBlack;
+    std::list<std::shared_ptr<Piece>> _capturedWhite;
 
     // stores the pieces ON the board belonging to each player
-    std::vector<std::shared_ptr<Piece>> _boardBlack;
-    std::vector<std::shared_ptr<Piece>> _boardWhite;
+    std::list<std::shared_ptr<Piece>> _boardBlack;
+    std::list<std::shared_ptr<Piece>> _boardWhite;
 
     Board::Team _activePlayer;
 
