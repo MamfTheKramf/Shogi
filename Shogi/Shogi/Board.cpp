@@ -78,11 +78,12 @@ void Board::mousePressEvent(QMouseEvent *event)
         _selectedField = p;
         _highlightedFields = _data[p.x][p.y]->getReachableFields();
 
-    // when clicked on a highlighted field
+    // when clicked on a highlighted field -> move Piece and change player
     } else if(std::count(_highlightedFields.begin(), _highlightedFields.end(), p)) {
         move(_selectedField, p);
         _selectedField = {-1, -1};
         _highlightedFields.clear();
+        changePlayer();
     }
 
 
@@ -335,5 +336,14 @@ void Board::move(Position from, Position to)
         piece->setPos(to.x, to.y);
         _data[to.x][to.y] = piece;
         _data[from.x][from.y].reset();
+    }
+}
+
+void Board::changePlayer()
+{
+    if(_activePlayer == Board::Team::Black) {
+        _activePlayer = Board::Team::White;
+    } else {
+        _activePlayer = Board::Team::Black;
     }
 }
