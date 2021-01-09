@@ -1,5 +1,4 @@
 #include "Board.h"
-#include "Piece.h"
 #include "Pawn.h"
 #include "Lance.h"
 #include "Knight.h"
@@ -96,7 +95,7 @@ void Board::mousePressEvent(QMouseEvent *event)
         }
         if (clickedType >= 0 && _numbersWhite[clickedType]) {
             _selectedField = p;
-            _highlightedFields = {{4, 4}};
+            _highlightedFields = getDropFields(clickedType);
         }
 
     // when clicked on BlackCaptured block
@@ -117,7 +116,7 @@ void Board::mousePressEvent(QMouseEvent *event)
         }
         if (clickedType >= 0 && _numbersBlack[clickedType]) {
             _selectedField = p;
-            _highlightedFields = {{3, 2}};
+            _highlightedFields = getDropFields(clickedType);
         }
 
     } else if (_data[p.x][p.y] && _data[p.x][p.y]->getTeam() == _activePlayer) {
@@ -471,4 +470,86 @@ void Board::changePlayer()
     } else {
         _activePlayer = Board::Team::Black;
     }
+}
+
+std::vector<Position> Board::getDropFields(int type)
+{
+    if (type == Piece::Type::Pawn) {
+        std::vector<Position> ret;
+        std::array<bool, 9> colBlocked{false};
+        if (_activePlayer == Board::Team::Black) {
+            for (auto p : _boardBlack) {
+                if (p->getType() == type) {
+                    colBlocked[p->getPos().x] = true;
+                }
+            }
+        } else {
+            for (auto p : _boardWhite) {
+                if (p->getType() == type) {
+                    colBlocked[p->getPos().x] = true;
+                }
+            }
+        }
+        for (int x = 0; x < 9; x++) {
+            if (colBlocked[x]) {
+                continue;
+            }
+            for (int y = 1; y < 8; y++) {
+                // add field only if it is free
+                if (!_data[x][y]) {
+                    ret.emplace_back(x, y);
+                }
+            }
+            if (_activePlayer == Board::Team::Black
+                    && !_data[x][8]) {
+                ret.emplace_back(x, 8);
+            } else if (_activePlayer == Board::Team::White
+                       && !_data[x][0]) {
+                ret.emplace_back(x, 0);
+            }
+        }
+        return ret;
+    } else if (type == Piece::Type::Lance) {
+        std::vector<Position> ret;
+        for (int x = 0; x < 9; x++) {
+            for (int y = 1; y < 8; y++) {
+                if (!_data[x][y]) {
+                    ret.emplace_back(x, y);
+                }
+            }
+            if (_activePlayer == Board::Team::Black
+                    && !_data[x][8]) {
+                ret.emplace_back(x, 8);
+            } else if (_activePlayer == Board::Team::White
+                       && !_data[x][0]) {
+                ret.emplace_back(x, 0);
+            }
+        }
+        return ret;
+    } else if (type == Piece::Type::Knight) {
+        std::vector<Position> ret;
+        for (int x = 0; x < 9; x++) {
+            for (int y = 0; y < 9; y++) {
+                if ((y < 2 && _activePlayer == Board::Team::Black)
+                        || (y > 6 && _activePlayer == Board::Team::White)) {
+                    continue;
+                }
+                if (!_data[x][y]) {
+                    ret.emplace_back(x, y);
+                }
+            }
+        }
+        return ret;
+    } else {
+        std::vector<Position> ret;
+        for (int x = 0; x < 9; x++) {
+            for (int y = 0; y < 9; y++) {
+                if (!_data[x][y]) {
+                    ret.emplace_back(x, y);
+                }
+            }
+        }
+        return ret;
+    }
+    return {};
 }

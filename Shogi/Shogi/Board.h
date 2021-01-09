@@ -8,8 +8,8 @@
 #include <QString>
 
 #include "Position.h"
-
 class Piece;
+
 class QPainter;
 
 class Board : public QWidget
@@ -38,6 +38,7 @@ protected:
     void updateWinTitle();
     void move(Position from, Position to);
     void changePlayer();
+    std::vector<Position> getDropFields(int type);
 
 private:
     // 2D-Array representing the board

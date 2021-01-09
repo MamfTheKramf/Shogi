@@ -29,6 +29,7 @@ void Piece::setPos(const Position &p)
     // when set to such a position the piece is captured and shall change the team
     if (p.x < 0 && p.y < 0) {
         changeTeam();
+        _isPromoted = false;
     }
     _pos = p;
 }
