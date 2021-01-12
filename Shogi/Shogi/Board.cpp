@@ -674,9 +674,9 @@ std::vector<Position> Board::getDropFields(int type)
 void Board::endGame()
 {
     QString filler = _activePlayer == Board::Team::Black ? "Black" : "White";
-    bool newGame = QMessageBox::question(this, QString("Game finished! %1 won!").arg(filler),
+    auto newGame = QMessageBox::question(this, QString("Game finished! %1 won!").arg(filler),
                                          QString("%1 won. Do you want to play again?").arg(filler));
-    if (newGame) {
+    if (newGame == QMessageBox::Yes) {
         reset();
     } else {
         close();
