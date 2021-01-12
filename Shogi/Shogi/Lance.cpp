@@ -1,6 +1,7 @@
 #include "Lance.h"
 
 const QString Lance::pic(":/assets/Assets/lance.png");
+const QString Lance::pic_promoted(":/assets/Assets/lance_promoted.png");
 
 Lance::Lance(Board::Team team):
     Piece({0, 0}, false, true, Piece::Type::Lance, team)
@@ -48,5 +49,7 @@ std::vector<Position> Lance::getReachableFields() const
 
 QString Lance::getPic() const
 {
-    return pic;
+    if (!_isPromoted)
+        return pic;
+    return pic_promoted;
 }

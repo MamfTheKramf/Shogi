@@ -21,6 +21,7 @@ public:
     QString getPic() const override;
 
     static const QString pic;
+    static const QString pic_promoted;
 };
 
 #endif // LANCE_H

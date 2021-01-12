@@ -1,6 +1,7 @@
 #include "Bishop.h"
 
 const QString Bishop::pic(":/assets/Assets/bishop.png");
+const QString Bishop::pic_promoted(":/assets/Assets/bishop_promoted.png");
 
 Bishop::Bishop(Board::Team team):
     Piece({0, 0}, false, true, Piece::Type::Bishop, team)
@@ -124,5 +125,7 @@ std::vector<Position> Bishop::getReachableFields() const
 
 QString Bishop::getPic() const
 {
-    return pic;
+    if (!_isPromoted)
+        return pic;
+    return pic_promoted;
 }

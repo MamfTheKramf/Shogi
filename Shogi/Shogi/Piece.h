@@ -41,6 +41,7 @@ public:
     void setPos(int x, int y);
     void setPos(const Position& p);
     bool isPromoted() const;
+    bool isPromotable() const;
     Piece::Type getType() const;
     Board::Team getTeam() const;
 

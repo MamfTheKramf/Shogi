@@ -10,5 +10,11 @@
         <file>Assets/pawn.png</file>
         <file>Assets/bishop.png</file>
         <file>Assets/rook.png</file>
+        <file>Assets/bishop_promoted.png</file>
+        <file>Assets/knight_promoted.png</file>
+        <file>Assets/lance_promoted.png</file>
+        <file>Assets/pawn_promoted.png</file>
+        <file>Assets/rook_promoted.png</file>
+        <file>Assets/silverGeneral_promoted.png</file>
     </qresource>
 </RCC>

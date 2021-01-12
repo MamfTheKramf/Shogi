@@ -1,6 +1,7 @@
 #include "SilverGeneral.h"
 
 const QString SilverGeneral::pic(":/assets/Assets/silverGeneral.png");
+const QString SilverGeneral::pic_promoted(":/assets/Assets/silverGeneral_promoted.png");
 
 SilverGeneral::SilverGeneral(Board::Team team):
     Piece({0, 0}, false, true, Piece::Type::SilverGeneral, team)
@@ -57,5 +58,7 @@ std::vector<Position> SilverGeneral::getReachableFields() const {
 
 QString SilverGeneral::getPic() const
 {
-    return pic;
+    if (!_isPromoted)
+        return pic;
+    return pic_promoted;
 }

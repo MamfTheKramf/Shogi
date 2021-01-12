@@ -1,6 +1,7 @@
 #include "Rook.h"
 
 const QString Rook::pic(":/assets/Assets/rook.png");
+const QString Rook::pic_promoted(":/assets/Assets/rook_promoted.png");
 
 Rook::Rook(Board::Team team):
     Piece({0, 0}, false, true, Piece::Type::Rook, team)
@@ -95,5 +96,7 @@ std::vector<Position> Rook::getReachableFields() const {
 
 QString Rook::getPic() const
 {
-    return pic;
+    if (!_isPromoted)
+        return pic;
+    return pic_promoted;
 }

@@ -39,6 +39,11 @@ bool Piece::isPromoted() const
     return _isPromoted;
 }
 
+bool Piece::isPromotable() const
+{
+    return _isPromotable;
+}
+
 Piece::Type Piece::getType() const
 {
     return _type;

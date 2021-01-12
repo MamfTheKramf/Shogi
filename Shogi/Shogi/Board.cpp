@@ -20,6 +20,7 @@
 #include <QTransform>
 #include <QMouseEvent>
 #include <QDebug>
+#include <QMessageBox>
 
 Board::Board(QWidget *parent) : QWidget(parent),
     _numbersBlack({0, 0, 0, 0, 0, 0, 0}),
@@ -542,6 +543,15 @@ void Board::move(Position from, Position to)
     // regular move on board
     } else if (_data[from.x][from.y] && _data[from.x][from.y]->getTeam() == _activePlayer) {
         std::shared_ptr<Piece> piece = _data[from.x][from.y];
+        // check whether piece can be promoted and ask if it should be promoted
+        if (piece->isPromotable() && !piece->isPromoted()
+                && ((_activePlayer == Board::Team::Black && (from.y <= 2 || to.y <= 2))
+                    || (_activePlayer == Board::Team::White && (from.y >= 6 || to.y >= 6)))) {
+            auto res = QMessageBox::question(this, "Promote", "Do you want to promote this piece?");
+            if(res == QMessageBox::Yes) {
+                piece->promote();
+            }
+        }
 
         // in case there is an enemy piece on that field, we need to take care of it
         if (_data[to.x][to.y] && _data[to.x][to.y]->getTeam() != _activePlayer) {

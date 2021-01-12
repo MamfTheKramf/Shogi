@@ -1,6 +1,7 @@
 #include "Knight.h"
 
 const QString Knight::pic(":/assets/Assets/knight.png");
+const QString Knight::pic_promoted(":/assets/Assets/knight_promoted.png");
 
 Knight::Knight(Board::Team team):
     Piece({0, 0}, false, true, Piece::Type::Knight, team)
@@ -47,5 +48,7 @@ std::vector<Position> Knight::getReachableFields() const
 
 QString Knight::getPic() const
 {
-    return pic;
+    if (!_isPromoted)
+        return pic;
+    return pic_promoted;
 }

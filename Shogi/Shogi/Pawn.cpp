@@ -1,6 +1,7 @@
 #include "Pawn.h"
 
 const QString Pawn::pic(":/assets/Assets/pawn.png");
+const QString Pawn::pic_promoted(":/assets/Assets/pawn_promoted.png");
 
 Pawn::Pawn(Board::Team team):
     Piece({0, 0}, false, true, Piece::Type::Pawn, team)
@@ -48,5 +49,7 @@ std::vector<Position> Pawn::getReachableFields() const {
 
 QString Pawn::getPic() const
 {
-    return pic;
+    if (!_isPromoted)
+        return pic;
+    return pic_promoted;
 }
