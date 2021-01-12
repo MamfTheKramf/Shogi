@@ -126,7 +126,11 @@ void Board::mousePressEvent(QMouseEvent *event)
 
     // when clicked on a highlighted field -> move Piece and change player
     } else if(std::count(_highlightedFields.begin(), _highlightedFields.end(), p)) {
-        move(_selectedField, p);
+        bool ret = move(_selectedField, p);
+        if (ret) {
+            endGame();
+            return;
+        }
         _selectedField = {-1, -1};
         _highlightedFields.clear();
         changePlayer();
@@ -448,7 +452,7 @@ void Board::updateWinTitle()
     setWindowTitle(title);
 }
 
-void Board::move(Position from, Position to)
+bool Board::move(Position from, Position to)
 {
     /*
         this method doen't check if you move a piece on another friendly piece
@@ -492,7 +496,7 @@ void Board::move(Position from, Position to)
             piece = std::make_shared<Rook>(this, to, Board::Team::White);
             break;
         default:
-            return;
+            return false;
         }
         _boardWhite.push_back(piece);
         _data[to.x][to.y] = piece;
@@ -535,7 +539,7 @@ void Board::move(Position from, Position to)
             piece = std::make_shared<Rook>(this, to, Board::Team::Black);
             break;
         default:
-            return;
+            return false;
         }
         _boardBlack.push_back(piece);
         _data[to.x][to.y] = piece;
@@ -556,6 +560,9 @@ void Board::move(Position from, Position to)
         // in case there is an enemy piece on that field, we need to take care of it
         if (_data[to.x][to.y] && _data[to.x][to.y]->getTeam() != _activePlayer) {
             std::shared_ptr<Piece> captured = _data[to.x][to.y];
+            if (captured->getType() == Piece::Type::King) {
+                return true;
+            }
             captured->setPos(-1, -1);
             if (_activePlayer == Board::Team::Black) {
                 _boardWhite.remove(captured);
@@ -570,6 +577,7 @@ void Board::move(Position from, Position to)
         _data[to.x][to.y] = std::move(piece);
         _data[from.x][from.y].reset();
     }
+    return false;
 }
 
 void Board::changePlayer()
@@ -661,4 +669,36 @@ std::vector<Position> Board::getDropFields(int type)
         return ret;
     }
     return {};
+}
+
+void Board::endGame()
+{
+    QString filler = _activePlayer == Board::Team::Black ? "Black" : "White";
+    bool newGame = QMessageBox::question(this, QString("Game finished! %1 won!").arg(filler),
+                                         QString("%1 won. Do you want to play again?").arg(filler));
+    if (newGame) {
+        reset();
+    } else {
+        close();
+    }
+}
+
+void Board::reset()
+{
+    _boardBlack.clear();
+    _boardWhite.clear();
+    for (int i = 0; i < 7; i++) {
+        _numbersBlack[i] = 0;
+        _numbersWhite[i] = 0;
+    }
+    for (int x = 0; x < 9; x++) {
+        for (int y = 0; y < 9; y++) {
+            _data[x][y].reset();
+        }
+    }
+
+    _highlightedFields.clear();
+    _selectedField = {-1, -1};
+    _activePlayer = Board::Team::Black;
+    initBoard();
 }

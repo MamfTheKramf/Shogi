@@ -36,9 +36,13 @@ protected:
     void drawPiece(QPainter* painter, float x, float y, float w, float h, Board::Team team, const QString& url) const;
     Position getClickedField(int x, int y) const;
     void updateWinTitle();
-    void move(Position from, Position to);
+    // returns true when King was killed and the game should end
+    bool move(Position from, Position to);
     void changePlayer();
     std::vector<Position> getDropFields(int type);
+    bool isCheckmate();
+    void endGame();
+    void reset();
 
 private:
     // 2D-Array representing the board
