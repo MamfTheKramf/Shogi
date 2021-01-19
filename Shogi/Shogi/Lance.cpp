@@ -43,7 +43,7 @@ std::vector<Position> Lance::getReachableFields(bool includeFriendlyFields) cons
         }
         return ret;
     } else {
-        return getGoldGeneralReachableFields();
+        return getGoldGeneralReachableFields(includeFriendlyFields);
     }
 }
 

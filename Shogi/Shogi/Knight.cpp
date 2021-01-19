@@ -42,7 +42,7 @@ std::vector<Position> Knight::getReachableFields(bool includeFriendlyFields) con
 
         return ret;
     } else {
-        return getGoldGeneralReachableFields();
+        return getGoldGeneralReachableFields(includeFriendlyFields);
     }
 }
 
