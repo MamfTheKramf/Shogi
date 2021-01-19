@@ -24,7 +24,7 @@ King::King(Board *board, const Position &p, Board::Team team, bool promoted):
     Piece(p, promoted, true, Piece::Type::King, team, board)
 {}
 
-std::vector<Position> King::getReachableFields() const
+std::vector<Position> King::getReachableFields(bool includeFriendlyFields) const
 {
     std::vector<Position> ret;
     for (int x = _pos.x - 1; x <= _pos.x + 1; x++) {

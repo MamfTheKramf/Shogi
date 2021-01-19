@@ -23,7 +23,7 @@ Rook::Rook(Board *board, const Position &p, Board::Team team, bool promoted):
     Piece(p, promoted, true, Piece::Type::Rook, team, board)
 {}
 
-std::vector<Position> Rook::getReachableFields() const {
+std::vector<Position> Rook::getReachableFields(bool includeFriendlyFields) const {
     std::vector<Position> ret;
 
     // up

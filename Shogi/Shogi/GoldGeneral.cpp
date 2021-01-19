@@ -22,7 +22,7 @@ GoldGeneral::GoldGeneral(Board *board, const Position &p, Board::Team team, bool
     Piece(p, promoted, true, Piece::Type::GoldGeneral, team, board)
 {}
 
-std::vector<Position> GoldGeneral::getReachableFields() const
+std::vector<Position> GoldGeneral::getReachableFields(bool includeFriendlyFields) const
 {
     return getGoldGeneralReachableFields();
 }

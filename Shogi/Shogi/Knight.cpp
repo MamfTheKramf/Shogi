@@ -23,7 +23,7 @@ Knight::Knight(Board *board, const Position &p, Board::Team team, bool promoted)
     Piece(p, promoted, true, Piece::Type::Knight, team, board)
 {}
 
-std::vector<Position> Knight::getReachableFields() const
+std::vector<Position> Knight::getReachableFields(bool includeFriendlyFields) const
 {
     if(!_isPromoted) {
         std::vector<Position> ret;

@@ -23,7 +23,7 @@ Bishop::Bishop(Board *board, const Position &p, Board::Team team, bool promoted)
     Piece(p, promoted, true, Piece::Type::Bishop, team, board)
 {}
 
-std::vector<Position> Bishop::getReachableFields() const
+std::vector<Position> Bishop::getReachableFields(bool includeFriendlyFields) const
 {
     std::vector<Position> ret;
 
@@ -33,7 +33,7 @@ std::vector<Position> Bishop::getReachableFields() const
         Position p(_pos.x - offset, _pos.y - offset);
         int res = _board ? _board->isOccupied(p) : -1;
         // only add the position when there isn't a teammate on the field
-        if (res != _team) {
+        if (includeFriendlyFields || res != _team) {
             ret.push_back(p);
         }
         // stop moving in this direction when the field in't empty
@@ -48,7 +48,7 @@ std::vector<Position> Bishop::getReachableFields() const
         Position p({_pos.x + offset, _pos.y - offset});
         int res = _board ? _board->isOccupied(p) : -1;
         // only add the position when there isn't a teammate on the field
-        if (res != _team) {
+        if (includeFriendlyFields || res != _team) {
             ret.push_back(p);
         }
         // stop moving in this direction when the field in't empty
@@ -63,7 +63,7 @@ std::vector<Position> Bishop::getReachableFields() const
         Position p({_pos.x - offset, _pos.y + offset});
         int res = _board ? _board->isOccupied(p) : -1;
         // only add the position when there isn't a teammate on the field
-        if (res != _team) {
+        if (includeFriendlyFields || res != _team) {
             ret.push_back(p);
         }
         // stop moving in this direction when the field in't empty
@@ -78,7 +78,7 @@ std::vector<Position> Bishop::getReachableFields() const
         Position p({_pos.x + offset, _pos.y + offset});
         int res = _board ? _board->isOccupied(p) : -1;
         // only add the position when there isn't a teammate on the field
-        if (res != _team) {
+        if (includeFriendlyFields || res != _team) {
             ret.push_back(p);
         }
         // stop moving in this direction when the field in't empty
@@ -93,28 +93,28 @@ std::vector<Position> Bishop::getReachableFields() const
         if (_pos.x - 1 >= 0) {
             Position p({_pos.x - 1, _pos.y});
             int res = _board ? _board->isOccupied(p) : -1;
-            if (res != _team) {
+            if (includeFriendlyFields || res != _team) {
                 ret.push_back(p);
             }
         }
         if (_pos.x + 1 < 9) {
             Position p({_pos.x + 1, _pos.y});
             int res = _board ? _board->isOccupied(p) : -1;
-            if (res != _team) {
+            if (includeFriendlyFields || res != _team) {
                 ret.push_back(p);
             }
         }
         if (_pos.y - 1 >= 0) {
             Position p({_pos.x, _pos.y - 1});
             int res = _board ? _board->isOccupied(p) : -1;
-            if (res != _team) {
+            if (includeFriendlyFields || res != _team) {
                 ret.push_back(p);
             }
         }
         if (_pos.y + 1 < 9) {
             Position p({_pos.x, _pos.y + 1});
             int res = _board ? _board->isOccupied(p) : -1;
-            if (res != _team) {
+            if (includeFriendlyFields || res != _team) {
                 ret.push_back(p);
             }
         }

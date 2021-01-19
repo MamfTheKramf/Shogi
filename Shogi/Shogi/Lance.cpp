@@ -23,7 +23,7 @@ Lance::Lance(Board *board, const Position &p, Board::Team team, bool promoted):
     Piece(p, promoted, true, Piece::Type::Lance, team, board)
 {}
 
-std::vector<Position> Lance::getReachableFields() const
+std::vector<Position> Lance::getReachableFields(bool includeFriendlyFields) const
 {
 
     if(!_isPromoted) {

@@ -47,7 +47,8 @@ public:
 
     void promote();
 
-    virtual std::vector<Position> getReachableFields() const = 0;
+    // if includeFriendlyFields is true the fields that would be taken out because there are friendly pieces will be included
+    virtual std::vector<Position> getReachableFields(bool includeFiendlyFields = false) const = 0;
     virtual QString getPic() const = 0;
 
 protected:

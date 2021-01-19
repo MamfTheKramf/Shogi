@@ -16,7 +16,7 @@ public:
 
     SilverGeneral(Board* board, const Position& p, Board::Team team, bool promoted = false);
 
-    std::vector<Position> getReachableFields() const override;
+    std::vector<Position> getReachableFields(bool includeFriendlyFields = false) const override;
 
     QString getPic() const override;
 

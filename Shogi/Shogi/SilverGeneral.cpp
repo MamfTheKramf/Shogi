@@ -23,7 +23,7 @@ SilverGeneral::SilverGeneral(Board *board, const Position &p, Board::Team team, 
     Piece(p, promoted, true, Piece::Type::SilverGeneral, team, board)
 {}
 
-std::vector<Position> SilverGeneral::getReachableFields() const {
+std::vector<Position> SilverGeneral::getReachableFields(bool includeFriendlyFields) const {
     if (!_isPromoted) {
         std::vector<Position> ret;
         // row in front

@@ -23,7 +23,7 @@ Pawn::Pawn(Board *board, const Position &p, Board::Team team, bool promoted):
     Piece(p, promoted, true, Piece::Type::Pawn, team, board)
 {}
 
-std::vector<Position> Pawn::getReachableFields() const {
+std::vector<Position> Pawn::getReachableFields(bool includeFriendlyFields) const {
     std::vector<Position> ret;
     if (!_isPromoted) {
         Position p = {_pos.x, _pos.y};
