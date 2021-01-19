@@ -33,7 +33,7 @@ std::vector<Position> Lance::getReachableFields(bool includeFriendlyFields) cons
                || (_team == Board::Team::White && _pos.y + offset < 9)) {
             int y = _team == Board::Team::Black ? _pos.y - offset : _pos.y + offset;
             int res = _board ? _board->isOccupied({_pos.x, y}) : -1;
-            if (res != _team) {
+            if (includeFriendlyFields || res != _team) {
                 ret.push_back({_pos.x, y});
             }
             if (res != -1) {
