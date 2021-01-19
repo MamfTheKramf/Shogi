@@ -53,7 +53,7 @@ public:
 
 protected:
     // made this method part of the base class since so many pieces get this movement when promoted
-    std::vector<Position> getGoldGeneralReachableFields() const;
+    std::vector<Position> getGoldGeneralReachableFields(bool includeFriendlyFields = false) const;
     void changeTeam();
 };
 

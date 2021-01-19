@@ -122,7 +122,7 @@ void Board::mousePressEvent(QMouseEvent *event)
 
     } else if (_data[p.x][p.y] && _data[p.x][p.y]->getTeam() == _activePlayer) {
         _selectedField = p;
-        _highlightedFields = _data[p.x][p.y]->getReachableFields();
+        _highlightedFields = _data[p.x][p.y]->getReachableFields(true);
 
     // when clicked on a highlighted field -> move Piece and change player
     } else if(std::count(_highlightedFields.begin(), _highlightedFields.end(), p)) {

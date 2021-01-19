@@ -24,7 +24,7 @@ GoldGeneral::GoldGeneral(Board *board, const Position &p, Board::Team team, bool
 
 std::vector<Position> GoldGeneral::getReachableFields(bool includeFriendlyFields) const
 {
-    return getGoldGeneralReachableFields();
+    return getGoldGeneralReachableFields(includeFriendlyFields);
 }
 
 QString GoldGeneral::getPic() const

@@ -60,7 +60,7 @@ void Piece::promote()
     _isPromoted = _isPromotable;
 }
 
-std::vector<Position> Piece::getGoldGeneralReachableFields() const
+std::vector<Position> Piece::getGoldGeneralReachableFields(bool includeFriendlyFields) const
 {
     std::vector<Position> ret;
     for (int x = _pos.x-1; x <= _pos.x+1; x++) {
@@ -72,7 +72,7 @@ std::vector<Position> Piece::getGoldGeneralReachableFields() const
                 || (_team == Board::Team::Black && y == _pos.y + 1 && x != _pos.x) // diagonal behind BLACK
                 || (_team == Board::Team::White && y == _pos.y - 1 && x != _pos.x) // diagonal behind WHITE
                 || (x == _pos.x && y == _pos.y) // current Pos
-                || (_board && _board->isOccupied({x, y}) == _team)) // Pos of teammate
+                || (_board && _board->isOccupied({x, y}) == _team && !includeFriendlyFields)) // Pos of teammate
             {
                 continue;
             }
