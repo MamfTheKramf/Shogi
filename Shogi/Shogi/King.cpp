@@ -34,7 +34,9 @@ std::vector<Position> King::getReachableFields(bool includeFriendlyFields) const
         for (int y = _pos.y - 1; y <= _pos.y + 1; y++) {
             if (y >= 0 && y < 9) {
                 Board::Team opp = _team == Board::Team::Black ? Board::Team::White : Board::Team::Black;
-                if ((_board && (_board->isOccupied({x, y}) == _team
+                // includeFriendlyFields will only be used for checking for checkmate;
+                // therefore the player will never be able to actually move a piece to that position
+                if ((!includeFriendlyFields && _board && (_board->isOccupied({x, y}) == _team
                                 || !_board->isSafe({x, y}, opp)))
                         || _pos == Position(x, y)) {
                     continue;
