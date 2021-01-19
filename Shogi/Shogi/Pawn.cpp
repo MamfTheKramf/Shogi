@@ -36,13 +36,13 @@ std::vector<Position> Pawn::getReachableFields(bool includeFriendlyFields) const
         if (p.y < 0 || p.y >= 9) {
             return ret;
         }
-        if (!_board || _board->isOccupied(p) != _team) {
+        if (includeFriendlyFields || !_board || _board->isOccupied(p) != _team) {
             ret.push_back(p);
         }
         return ret;
 
     } else {
-        return getGoldGeneralReachableFields();
+        return getGoldGeneralReachableFields(includeFriendlyFields);
     }
 
 }
