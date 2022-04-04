@@ -597,13 +597,13 @@ std::vector<Position> Board::getDropFields(int type)
         if (_activePlayer == Board::Team::Black) {
             for (auto p : _boardBlack) {
                 if (p->getType() == type) {
-                    colBlocked[p->getPos().x] = true;
+                    colBlocked[p->getPos().x] = !p->isPromoted();
                 }
             }
         } else {
             for (auto p : _boardWhite) {
                 if (p->getType() == type) {
-                    colBlocked[p->getPos().x] = true;
+                    colBlocked[p->getPos().x] = !p->isPromoted();
                 }
             }
         }
